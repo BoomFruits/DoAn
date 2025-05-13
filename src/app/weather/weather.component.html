@@ -1,0 +1,26 @@
+<div *ngIf="data.length > 0">
+    <table>
+      <thead>
+        <tr>
+          <th>Ngày</th>
+          <th>Nhiệt độ (°C)</th>
+          <th>Nhiệt độ (°F)</th>
+          <th>Dự báo</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let w of data">
+          <!-- <td>{{ w.date | date:'dd/MM/yyyy' }}</td> -->
+           <td>{{ w.date }}</td>
+          <td>{{ w.temperatureC }}</td>
+          <td>{{ w.temperatureF }}</td>
+          <td>{{ w.summary}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+    <button class="btn btn-danger" (click)="onLogout()">Logout</button>
+  <div *ngIf="data.length === 0">
+    <p>Không có dữ liệu thời tiết.</p>
+  </div>
+  
