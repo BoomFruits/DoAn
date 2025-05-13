@@ -6,11 +6,11 @@ import { AuthService } from '../auth/auth.service';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-weather',
-  standalone: true,
-  imports: [CommonModule],
-  templateUrl: './weather.component.html',
-  styleUrl: './weather.component.scss'
+    selector: 'app-weather',
+    imports: [CommonModule],
+    standalone:true,
+    templateUrl: './weather.component.html',
+    styleUrl: './weather.component.scss'
 })
 export class WeatherComponent {
  data: Weather[] = [];

@@ -1,19 +1,18 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from '../auth/auth.service';
 import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
-  standalone: true,
-  imports: [CommonModule,ReactiveFormsModule,
-      FormsModule],
+  standalone:true,
+  imports: [CommonModule,ReactiveFormsModule,FormsModule],
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss'
 })
 export class RegisterComponent {
-  registerForm!: FormGroup;
+   registerForm!: FormGroup;
   constructor(private fb: FormBuilder,private authService: AuthService,private router: Router) {
     this.registerForm = this.fb.group({
       username: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(20)]],
@@ -67,5 +66,3 @@ export class RegisterComponent {
     return '';
   }
 }
-
-

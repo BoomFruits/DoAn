@@ -1,22 +1,18 @@
-import { Component, OnInit,AfterViewInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { Room } from '../../model/room.model';
 import { RoomService } from '../services/room.service';
-import { FormsModule, NgModel, NgModelGroup } from '@angular/forms';
-import { CommonModule } from '@angular/common';
-import { DropdownModule, SidebarModule } from '@coreui/angular';
-// declare var $:any;
-declare var WOW: any;
+
 @Component({
   selector: 'app-room',
-  standalone: true,
-  imports: [   CommonModule,
-      FormsModule,SidebarModule,DropdownModule],
+  standalone:true,
+  imports: [CommonModule,FormsModule],
   templateUrl: './room.component.html',
   styleUrl: './room.component.scss'
 })
-export class RoomComponent implements OnInit,AfterViewInit
-{
-  rooms: Room[] = [];
+export class RoomComponent {
+   rooms: Room[] = [];
   room: Room = this.emptyRoom();
   constructor(private roomService: RoomService){}
   ngAfterViewInit(): void {
