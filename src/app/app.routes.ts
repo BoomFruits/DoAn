@@ -15,7 +15,7 @@ export const routes: Routes = [
     // {path: 'room',component:RoomComponent,canActivate: [AuthGuard,AdminGuard]},
     {path: 'room',component:RoomComponent},
     {path:'room-card',component:AppRoomCardComponent},
-    {path:'admin',loadChildren: () => import('./admin/src/app/app.routes').then(m => m.routes)},
+    {path:'admin',loadChildren: () => import('./admin/admin.routes').then(m => m.routes)},
     { path: '**', redirectTo: 'login' },
     
 ];
