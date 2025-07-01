@@ -1,0 +1,94 @@
+<div class="container py-4">
+  <h4>Quản lý người dùng</h4>
+
+  <!-- Tìm kiếm -->
+  <div class="mb-3">
+    <input
+      class="form-control"
+      [(ngModel)]="keyword"
+      placeholder="Tìm kiếm người dùng..."
+    />
+  </div>
+
+  <!-- Bảng -->
+  <table class="table table-bordered table-striped">
+    <thead class="table-light">
+      <tr>
+        <th>Email</th>
+        <th>Username</th>
+        <th>Phone</th>
+        <th>Role</th>
+        <th>Gender</th>
+        <th>Address</th>
+        <th>Created at</th>
+        <th>Updated at</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let u of search()">
+        <td>{{ u.email }}</td>
+
+        <!-- Edit mode -->
+        <ng-container *ngIf="editingUserId === u.id; else normalView">
+          <td [formGroup]="editForm">
+            <input class="form-control" formControlName="userName" />
+          </td>
+          <td [formGroup]="editForm">
+            <input class="form-control" formControlName="phoneNumber" />
+          </td>
+          <td [formGroup]="editForm">
+            <select class="form-select" formControlName="roleId">
+              <option *ngFor="let r of roles" [value]="r.id">
+                {{ r.rolename }}
+              </option>
+            </select>
+          </td>
+          <td [formGroup]="editForm">
+            <select class="form-select" formControlName="gender">
+              <option value="Male">Nam</option>
+              <option value="Female">Nữ</option>
+              <option value="Other">Khác</option>
+            </select>
+          </td>
+          <td [formGroup]="editForm">
+            <input class="form-control" formControlName="address" />
+          </td>
+        </ng-container>
+
+        <!-- Normal view -->
+        <ng-template #normalView>
+          <td>{{ u.username }}</td>
+          <td>{{ u.phoneNumber }}</td>
+          <td>{{ u.roleId === 2 ? "Admin" : "User" }}</td>
+          <td>{{ u.gender }}</td>
+          <td>{{ u.address }}</td>
+        </ng-template>
+
+        <td>{{ u.createdAt | date : "dd/MM/yyyy HH:mm" }}</td>
+        <td>
+          {{ u.updatedAt ? (u.updatedAt | date : "dd/MM/yyyy HH:mm") : "---" }}
+        </td>
+
+        <td>
+          <ng-container *ngIf="editingUserId === u.id; else normalButtons">
+            <button class="btn btn-sm btn-success me-1" (click)="save(u.id)">
+              Save
+            </button>
+            <button class="btn btn-sm btn-secondary" (click)="cancel()">
+              Cancel
+            </button>
+          </ng-container>
+          <ng-template #normalButtons>
+            <button class="btn btn-sm btn-warning me-1" (click)="edit(u)">
+              Edit
+            </button>
+            <button class="btn btn-sm btn-danger" (click)="delete(u.id)">
+              Delete
+            </button>
+          </ng-template>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

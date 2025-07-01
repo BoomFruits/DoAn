@@ -1,5 +1,10 @@
 import { Routes } from '@angular/router';
 import { DefaultLayoutComponent } from './layout';
+import { RoomListComponent } from './views/room-list/room-list.component';
+import { AdminProductComponent } from './views/product/product.component';
+import { CategoryAdminComponent } from './views/category-admin/category-admin.component';
+import { UserAdminComponent } from './views/user-admin/user-admin.component';
+import { AdminBookingComponent } from './views/booking-admin/admin-booking.component';
 
 export const routes: Routes = [
   {
@@ -14,6 +19,11 @@ export const routes: Routes = [
       title: 'Home'
     },
     children: [
+      {path: 'room',component:RoomListComponent},
+      {path: 'product',component:AdminProductComponent},
+      {path: 'booking',component:AdminBookingComponent},
+      {path: 'category',component:CategoryAdminComponent},
+      {path: 'user',component:UserAdminComponent},
       {
         path: 'dashboard',
         loadChildren: () => import('./views/dashboard/routes').then((m) => m.routes)
@@ -68,20 +78,6 @@ export const routes: Routes = [
     loadComponent: () => import('./views/pages/page500/page500.component').then(m => m.Page500Component),
     data: {
       title: 'Page 500'
-    }
-  },
-  {
-    path: 'login',
-    loadComponent: () => import('./views/pages/login/login.component').then(m => m.LoginComponent),
-    data: {
-      title: 'Login Page'
-    }
-  },
-  {
-    path: 'register',
-    loadComponent: () => import('./views/pages/register/register.component').then(m => m.RegisterComponent),
-    data: {
-      title: 'Register Page'
     }
   },
   { path: '**', redirectTo: 'dashboard' }

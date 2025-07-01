@@ -1,4 +1,5 @@
 /********** Template CSS **********/
+
 :root {
     --primary: #FEA116;
     --light: #F1F8FF;
@@ -489,3 +490,17 @@
     padding-right: 0;
     border-right: none;
 }
+.modal-content {
+    max-height: 80vh; /* Chiều cao tối đa của modal */
+    overflow-y: auto; /* Cuộn khi nội dung vượt quá chiều cao tối đa */
+}
+
+.modal-body {
+    padding: 1rem; /* Padding cho nội dung modal */
+}
+
+:host {
+  display: block;
+  max-width: 100%;
+}
+

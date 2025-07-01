@@ -1,6 +1,17 @@
-(function ($) {
-    "use strict";
+if (!window.location.pathname.startsWith('/admin')) {
+console.log("Script loaded", $, typeof $.fn.datetimepicker);
+console.log($);
+      document.addEventListener('DOMContentLoaded', function () {
+    if (typeof jQuery === 'undefined') {
+      console.error('jQuery not loaded!');
+      return;
+    }
 
+    (function ($) {
+      "use strict";
+  (function ($) {
+    "use strict";
+      
     // Spinner
     var spinner = function () {
         setTimeout(function () {
@@ -106,4 +117,7 @@
     });
     
 })(jQuery);
-console.log($);
+    })(jQuery);
+  });
+}
+

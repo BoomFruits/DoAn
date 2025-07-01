@@ -1,0 +1,77 @@
+<!-- <form action="" (submit)="onSubmit()" enctype="multipart/form-data"> -->
+  <div class="container-xxl bg-white p-4 bg-body text-body">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="text-primary">Room Management</h2>
+    <a type="submit" class="btn btn-success" (click)="openModal()">
+      <i class="fa fa-plus me-2"></i> Add New Room
+    </a>
+  </div>
+
+  <div class="row g-4">
+  <div class="col-lg-4 col-md-6" *ngFor="let room of rooms">
+    <div
+      class="room-item shadow rounded overflow-hidden border"
+      [ngClass]="room.isAvailable ? 'border-success' : 'border-secondary'"
+    >
+      <div class="position-relative">
+        <img
+          class="img-fluid w-100"
+          [src]="'https://localhost:7275' + room.images[0]"
+          alt="Room Image"
+          style="height: 250px; object-fit: cover;"
+        />
+        <small
+          class="position-absolute start-0 top-100 translate-middle-y bg-primary text-white rounded py-1 px-3 ms-4"
+        >
+          {{ room.price }} VND/Night
+        </small>
+          <!-- availble ? -->
+        <span
+          class="position-absolute top-0 end-0 m-2 px-2 py-1 rounded text-white fw-bold"
+          [ngClass]="room.isAvailable ? 'bg-success' : 'bg-secondary'"
+        >
+          {{ room.isAvailable ? 'Active' : 'Unavailable' }}
+        </span>
+      </div>
+
+      <div class="p-4 mt-2">
+        <h5 class="mb-2">
+          Room No: {{ room.room_No }} - {{ room.room_Name }}
+        </h5>
+        <p class="text-muted mb-2">
+          <i class="fa fa-bed text-primary me-2"></i>{{ room.bed }} Bed |
+          <i class="fa fa-bath text-primary me-2"></i>{{ room.bath }} Bath |
+          <i class="fa fa-expand text-primary me-2"></i>{{ room.area }} m²
+        </p>
+        <p class="text-body small">{{ room.description }}</p>
+
+        <div class="d-flex justify-content-between mt-3">
+          <a (click)="onEdit(room)" class="btn btn-sm btn-warning">
+            <i class="fa fa-edit me-1"></i>Edit
+          </a>
+          <button
+            (click)="onDelete(room.id)"
+            class="btn btn-sm btn-danger"
+          >
+            <i class="fa fa-trash me-1"></i>Delete
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+<!-- </form> -->
+
+<!-- Bootstrap Modal -->
+<div class="modal fade" id="addRoomModal" tabindex="-1" aria-labelledby="addRoomModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content" style="max-height: 80vh; overflow-y: auto;">
+      <app-room-form
+        [isEdit]="isEditing"
+        [roomData]="editingRoom"
+        (formSaved)="onFormSaved()"
+      ></app-room-form>
+    </div>
+  </div>
+</div>

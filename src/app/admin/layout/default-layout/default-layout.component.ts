@@ -40,7 +40,7 @@ function isOverflown(element: HTMLElement) {
     SidebarToggleDirective,
     SidebarTogglerDirective,
     ContainerComponent,
-    DefaultFooterComponent,
+    // DefaultFooterComponent,
     DefaultHeaderComponent,
     IconDirective,
     NgScrollbar,

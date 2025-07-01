@@ -1,0 +1,88 @@
+<div class="container py-4">
+  <h4>Quản lý Booking</h4>
+
+  <div class="mb-3">
+    <input
+      class="form-control"
+      [(ngModel)]="keyword"
+      placeholder="Tìm kiếm..."
+    />
+  </div>
+
+  <table class="table table-bordered table-striped">
+    <thead class="table-light">
+      <tr>
+        <th>#</th>
+        <th>Customer</th>
+        <th>Email</th>
+        <th>Checkin</th>
+        <th>Details</th>
+        <th>Total price</th>
+        <th>Checkout</th>
+        <th>Payment</th>
+        <th>Status</th>
+        <th>Created date</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let b of search(); let i = index">
+        <td>{{ i + 1 }}</td>
+        <td>{{ b.userName }}</td>
+        <td>{{ b.userEmail }}</td>
+        <td>{{ formatDate(b.checkinDate) }}</td>
+        <td>
+          <div *ngFor="let room of b.rooms" class="mb-2 p-2 border rounded">
+            <td>
+              <div class="d-flex justify-content-between align-items-center">
+                <div>
+                  <strong>Room:</strong> {{ room.room_No }} - {{ room.room_Name
+                  }}<br />
+                  <strong>Time:</strong> {{ formatDate(room.checkinDate) }} →
+                  {{ formatDate(room.checkoutDate) }}<br />
+                  <strong>Price:</strong> {{ room.price | number }} VNĐ
+                </div>
+                <div>
+                  <button
+                    *ngIf="!room.isCheckedIn && b.status != 2"
+                    class="btn btn-success btn-sm"
+                    (click)="checkIn(b.id, room.roomId, room)"
+                  >
+                    Check in - {{ b.id }}
+                  </button>
+                  <button
+                    *ngIf="room.isCheckedIn && !room.isCheckedOut"
+                    class="btn btn-warning btn-sm"
+                    (click)="checkOut(b.id, room.roomId, room)"
+                  >
+                    Check out
+                  </button>
+                  <span *ngIf="room.isCheckedOut" class="badge bg-info"
+                    >Completed</span
+                  >
+                </div>
+              </div>
+            </td>
+          </div>
+        </td>
+        <td>{{ b.totalPrice | number }} VND</td>
+        <td>{{ formatDate(b.checkoutDate) }}</td>
+        <td>{{ b.paymentMethod }}</td>
+        <td>
+          <!-- 0 pending , 1 confirmed ( paid) 2: canceled 3: done (đã check out) -->
+          <span
+            class="badge"
+            [ngClass]="{
+              'bg-warning': b.status === 0,
+              'bg-success': b.status === 1 && b.isPaid,
+              'bg-danger': b.status === 2,
+              'bg-info': b.status === 3
+            }"
+          >
+            {{ getStatusName(b.status) }}
+          </span>
+        </td>
+        <td>{{ formatDate(b.bookingDate) }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

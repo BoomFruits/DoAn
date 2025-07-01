@@ -3,30 +3,21 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Room } from '../../model/room.model';
 
-
 @Injectable({ providedIn: 'root' })
 export class RoomService {
-  private apiUrl = 'https://localhost:7275/api/room'; // thay đổi theo backend thực tế
-
+  private apiUrl = 'https://localhost:7275/api/room';
+  private imageBaseUrl = 'https://localhost:7275/uploads/rooms';
   constructor(private http: HttpClient) {}
-
-  getAll(): Observable<Room[]> {
-    return this.http.get<Room[]>(this.apiUrl);
+  getImageBaseUrl(){
+    return this.imageBaseUrl;
   }
-
-  getById(id: number): Observable<Room> {
-    return this.http.get<Room>(`${this.apiUrl}/${id}`);
+  getAllRooms(): Observable<any[]> {
+    return this.http.get<any[]>(this.apiUrl+"/get_all_rooms");
   }
-
-  create(room: Room): Observable<Room> {
-    return this.http.post<Room>(this.apiUrl, room);
+  getRoomById(id: number): Observable<any>{
+    return this.http.get(`${this.apiUrl}/${id}`);
   }
-
-  update(id: number, room: Room): Observable<Room> {
-    return this.http.put<Room>(`${this.apiUrl}/${id}`, room);
-  }
-
-  delete(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/${id}`);
+  getActiveRoom(): Observable<any[]>{
+    return this.http.get<any[]>(this.apiUrl+"/get_active_rooms");
   }
 }

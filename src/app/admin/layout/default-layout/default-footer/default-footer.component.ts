@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { FooterComponent } from '@coreui/angular';
+import { Component, inject } from '@angular/core';
+import { ColorModeService, FooterComponent } from '@coreui/angular';
 
 @Component({
     selector: 'app-default-footer',

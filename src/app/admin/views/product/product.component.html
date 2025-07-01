@@ -1,0 +1,113 @@
+<div class="container py-4">
+  <h3>Quản lý sản phẩm</h3>
+
+  <!-- Form -->
+  <form
+    [formGroup]="productForm"
+    (ngSubmit)="submit()"
+    class="mb-4 border p-3 rounded bg-light"  enctype="multipart/form-data"
+  >
+    <div class="row g-2">
+      <div class="col-md-4">
+        <input
+          type="text"
+          class="form-control"
+          formControlName="title"
+          placeholder="Product name"
+        />
+      </div>
+      <div class="col-md-3">
+        <input
+          type="number"
+          class="form-control"
+          formControlName="price"
+          [min]="0"
+          placeholder="Price"
+        />
+      </div>
+      <div class="col-md-3">
+        <input
+          type="number"
+          class="form-control"
+          formControlName="stockQuantity"
+          [min]="0"
+          placeholder="Stock"
+        />
+      </div>
+      
+      <div class="col-md-2">
+        <input
+          type="text"
+          class="form-control"
+          formControlName="unit"
+          placeholder="Unit"
+        />
+      </div>
+       <div class="col-md-2">
+        <label for="">Category</label>
+        <select class="form-select" formControlName="categoryId">
+                <option *ngFor="let c of categories" [value]="c.id">{{ c.name }}</option>
+          </select>
+      </div>
+      <div class="col-12 mt-2">
+        <textarea
+          class="form-control"
+          rows="2"
+          formControlName="description"
+          placeholder="Description"
+        ></textarea>
+      </div>
+      <div class="col-12 mt-3 text-end">
+        <button type="submit" class="btn btn-primary me-2">Save</button>
+        <button type="button" class="btn btn-secondary" (click)="resetForm()">
+          Cancel
+        </button>
+      </div>
+    </div>
+  </form>
+
+  <!-- Search -->
+  <div class="mb-3">
+    <input
+      class="form-control"
+      [(ngModel)]="keyword"
+      placeholder="Tìm kiếm sản phẩm..."
+      name="search"
+    />
+  </div>
+
+  <!-- Table -->
+  <table class="table table-bordered table-hover table-striped">
+    <thead class="table-light">
+      <tr>
+        <th>Title</th>
+        <th>Price</th>
+        <th>Stock</th>
+        <th>Unit</th>
+        <th>Category</th>
+        <th>Description</th>
+        <th>Created at</th>
+        <th>Updated at</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let p of search()">
+        <td>{{ p.title }}</td>
+        <td>{{ p.price | number }}</td>
+        <td>{{ p.stockQuantity }}</td>
+        <td>{{ p.unit }}</td>
+        <td>{{ p.categoryName }}</td>
+        <td>{{ p.description }}</td>
+        <td>{{ p.createdAt | date: 'dd/MM/yyyy HH:mm' }}</td>
+      <td>{{ p.updatedAt ? (p.updatedAt | date: 'dd/MM/yyyy HH:mm') : '---' }}</td>
+        <td>
+          <button class="btn btn-sm btn-warning me-1" (click)="edit(p)">
+            Sửa
+          </button>
+          <button class="btn btn-sm btn-danger" (click)="delete(p)">Xoá</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

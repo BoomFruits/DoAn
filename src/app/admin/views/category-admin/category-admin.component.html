@@ -1,0 +1,33 @@
+<div class="container py-4">
+  <h4>Quản lý danh mục</h4>
+
+  <form [formGroup]="form" (ngSubmit)="submit()" class="mb-3 row g-2 align-items-center">
+    <div class="col-md-6">
+      <input class="form-control" placeholder="Tên danh mục" formControlName="name" />
+    </div>
+    <div class="col-auto">
+      <button type="submit" class="btn btn-primary">{{ editingId ? 'Cập nhật' : 'Thêm' }}</button>
+      <button type="button" class="btn btn-secondary" (click)="reset()" *ngIf="editingId">Hủy</button>
+    </div>
+  </form>
+
+  <table class="table table-bordered table-striped">
+    <thead class="table-light">
+      <tr>
+        <th>ID</th>
+        <th>Tên danh mục</th>
+        <th>Thao tác</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let c of categories">
+        <td>{{ c.id }}</td>
+        <td>{{ c.name }}</td>
+        <td>
+          <button class="btn btn-sm btn-warning me-1" (click)="edit(c)">Sửa</button>
+          <button class="btn btn-sm btn-danger" (click)="delete(c.id)">Xoá</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

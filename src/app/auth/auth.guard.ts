@@ -1,15 +1,17 @@
 import { Injectable } from "@angular/core";
 import { CanActivate, Router } from "@angular/router";
 import { AuthService } from "./auth.service";
+import { ToastrService } from "ngx-toastr";
+
 
 @Injectable({ providedIn: 'root' })
 export class AuthGuard implements CanActivate {
-  constructor(private auth: AuthService, private router: Router) {}
+  constructor(private auth: AuthService, private router: Router,private toastr: ToastrService) {}
 
   canActivate(): boolean {
     const isAuth = this.auth.isLoggedIn();
-    console.log('AuthGuard check:', isAuth);
     if (isAuth) return true;
+     this.toastr.warning("Please login to continue","Not login yet");
     this.router.navigate(['/login']);
     return false;
   }

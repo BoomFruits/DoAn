@@ -1,11 +1,15 @@
 export interface Room {
-    id?: number;
+    id: number;
     room_No: string;
+    room_Name: string;
     capacity: number;
     type: string;
     price: number;
-    createdAt?: Date;
     isAvailable: boolean;
-    image?: string;
+    bed: number;
+    bath: number;
+    area: number;
+    description: string;
+    images: string[];
   }
   

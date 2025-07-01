@@ -1,0 +1,21 @@
+:host {
+  display: block;
+  padding: 1rem;
+}
+
+/* Light Theme */
+:host-context(.c-light-theme) .container-xxl {
+  background-color: #ffffff;
+  color: #000;
+}
+
+/* Dark Theme */
+:host-context(.c-dark-theme) .container-xxl {
+  background-color: #2a2a2a;
+  color: #f1f1f1;
+}
+
+.room-item {
+  background-color: inherit;
+  color: inherit;
+}

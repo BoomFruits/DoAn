@@ -1,0 +1,8 @@
+<div class="row g-4">
+  <div class="col-md-3" *ngFor="let stat of stats">
+    <div class="card shadow p-3 bg-white rounded">
+      <h6>{{ stat.label }}</h6>
+      <h4 class="text-primary">{{ stat.value }}</h4>
+    </div>
+  </div>
+</div>

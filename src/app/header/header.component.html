@@ -1,0 +1,93 @@
+
+    <!-- Header Start -->
+        <div class="container-fluid bg-dark px-0">
+            <div class="row gx-0">
+                <div class="col-lg-3 bg-dark d-none d-lg-block">
+                    <a href="index.html" class="navbar-brand w-100 h-100 m-0 p-0 d-flex align-items-center justify-content-center">
+                        <h1 class="m-0 text-primary text-uppercase">BOOKINGAPP</h1>
+                    </a>
+                </div>
+                <div class="col-lg-9">
+                    <div class="row gx-0 bg-white d-none d-lg-flex">
+                        <div class="col-lg-7 px-5 text-start">
+                            <div class="h-100 d-inline-flex align-items-center py-2 me-4">
+                                <i class="fa fa-envelope text-primary me-2"></i>
+                                <p class="mb-0">info&#64;example.com</p>
+                            </div>
+                            <div class="h-100 d-inline-flex align-items-center py-2">
+                                <i class="fa fa-phone-alt text-primary me-2"></i>
+                                <p class="mb-0">+012 345 6789</p>
+                            </div>
+                        </div>
+                        <div class="col-lg-5 px-5 text-end">
+                            <div class="d-inline-flex align-items-center py-2">
+                                <a class="me-3" href=""><i class="fab fa-facebook-f"></i></a>
+                                <a class="me-3" href=""><i class="fab fa-twitter"></i></a>
+                                <a class="me-3" href=""><i class="fab fa-linkedin-in"></i></a>
+                                <a class="me-3" href=""><i class="fab fa-instagram"></i></a>
+                                <a class="" href=""><i class="fab fa-youtube"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <nav class="navbar navbar-expand-lg bg-dark navbar-dark p-3 p-lg-0">
+                        <a [routerLink]="['/home']" class="navbar-brand d-block d-lg-none">
+                            <h1 class="m-0 text-primary text-uppercase">BOOKINGAPP</h1>
+                        </a>
+                        <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                        <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
+                            <div class="navbar-nav mr-auto py-0">
+                                <a [routerLink]="['/home']" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" class="nav-item nav-link">Home</a>
+
+                                <a [routerLink]="['/about']" routerLinkActive="active" class="nav-item nav-link">About</a>
+
+                                <a [routerLink]="['/service']" routerLinkActive="active" class="nav-item nav-link">Services</a>
+
+                                <a [routerLink]="['/room']" routerLinkActive="active" class="nav-item nav-link">Rooms</a>
+
+                                <div class="nav-item dropdown" routerLinkActive="active">
+                                <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#">Pages</a>
+                                <div class="dropdown-menu rounded-0 m-0">
+                                    <a [routerLink]="['/room']" routerLinkActive="active" class="dropdown-item">Booking</a>
+                                    <a [routerLink]="['/team']" routerLinkActive="active" class="dropdown-item">Our Team</a>
+                                    <a [routerLink]="['/testimonial']" routerLinkActive="active" class="dropdown-item">Testimonial</a>
+                                </div>
+                                </div>
+
+                                <a [routerLink]="['/contact']" routerLinkActive="active" class="nav-item nav-link">Contact</a>
+                                <a *ngIf="!isLogged()" [routerLink]="['/login']" routerLinkActive="active" class="nav-item nav-link">Login</a>
+                                <div class="d-flex align-items-center">
+                                    <ng-container *ngIf="isLogged()">
+                                    <ng-container *ngTemplateOutlet="userDropdown"></ng-container>
+                                </ng-container>
+                                <ng-template #userDropdown>
+                                    <c-dropdown [popperOptions]="{ placement: 'bottom-start' }" variant="nav-item">
+                                        <button cDropdownToggle class="py-0 pe-0" aria-label="Open user menu">
+                                            Welcome, {{ getUserName() }}
+                                        </button>
+                                        <ul cDropdownMenu class="pt-0 w-56 bg-white shadow-md rounded-md text-sm text-gray-800 z-50">
+                                            <li>
+                                                <h6 class="px-4 py-2 text-xs text-gray-500 uppercase tracking-wide">Welcome</h6>
+                                            </li>
+                                            <li>
+                                                <a cDropdownItem [routerLink]="['/profile']" class="block px-4 py-2 hover:bg-gray-100">👤 Profile</a>
+                                            </li>
+                                            <li>
+                                                <a cDropdownItem [routerLink]="['/my-bookings']" class="block px-4 py-2 hover:bg-gray-100">History</a>
+                                            </li>
+                                            <li><hr class="my-1 border-t border-gray-200" /></li>
+                                            <li>
+                                                <a cDropdownItem (click)="onLogout()" class="block px-4 py-2 text-red-600 hover:bg-red-50">🚪 Logout</a>
+                                            </li>
+                                            </ul>
+                                    </c-dropdown>
+                                </ng-template>
+                                </div>
+                            </div>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </div>
+        <!-- Header End -->

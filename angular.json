@@ -31,27 +31,30 @@
               "src/assets"
             ],
             "styles": [
+              "src/app/admin/scss/styles.scss",
               "src/styles.scss",
-              "src/assets/css/bootstrap.min.css",
               "src/assets/lib/animate/animate.min.css",
               "src/assets/lib/owlcarousel/assets/owl.carousel.min.css",
-              "src/assets/css/style.css",
-              "node_modules/@coreui/coreui/dist/css/coreui.min.css"
+               "node_modules/flatpickr/dist/flatpickr.min.css",
+               "node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "node_modules/@coreui/coreui/dist/css/coreui.min.css",
+              "node_modules/ngx-toastr/toastr.css"
             ],
             "scripts": [
-              "node_modules/jquery/dist/jquery.min.js",
-               "src/assets/lib/wow/wow.min.js",
-                "src/assets/lib/easing/easing.min.js",
-                "src/assets/lib/waypoints/waypoints.min.js",
-                "src/assets/lib/counterup/counterup.min.js",
-                "src/assets/lib/owlcarousel/owl.carousel.min.js",
-                "src/assets/lib/tempusdominus/js/moment.min.js",
-                "src/assets/lib/tempusdominus/js/moment-timezone.min.js",
-                "src/assets/lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js",
-                "src/assets/js/main.js",
-                "node_modules/@coreui/coreui/dist/js/coreui.bundle.min.js"
+              "node_modules/jquery/dist/jquery.min.js",            
+              "src/assets/lib/wow/wow.min.js",      
+              "src/assets/lib/easing/easing.min.js",       
+              "src/assets/lib/waypoints/waypoints.min.js",                       
+              "src/assets/lib/counterup/counterup.min.js",                        
+              "src/assets/lib/owlcarousel/owl.carousel.min.js", 
+              "src/assets/lib/tempusdominus/js/moment.min.js",                              
+              "src/assets/lib/tempusdominus/js/moment-timezone.min.js",                                      
+              "src/assets/lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js",                                 
+              "src/assets/js/main.js",                                          
+              "node_modules/@coreui/coreui/dist/js/coreui.bundle.min.js", 
+               "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"  
             ],
-            "baseHref": "/"
+            "baseHref": ""
           },
           "configurations": {
             "production": {
@@ -72,7 +75,8 @@
             "development": {
               "optimization": false,
               "extractLicenses": false,
-              "sourceMap": true
+              "sourceMap": true,
+              "namedChunks": true
             }
           },
           "defaultConfiguration": "production"
@@ -84,7 +88,8 @@
               "buildTarget": "doanfrontend:build:production"
             },
             "development": {
-              "buildTarget": "doanfrontend:build:development"
+              "buildTarget": "doanfrontend:build:development",
+              "hmr":false
             },
             "proxyConfig":"proxy.conf.json"
           },

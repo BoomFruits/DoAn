@@ -1,0 +1,177 @@
+<!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">  
+
+    <!-- Icon Font Stylesheet -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+    <!-- Libraries Stylesheet -->
+    <link href="../../assets/lib/animate/animate.min.css" rel="stylesheet">
+    <link href="../../assets/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+    <link href="../../assets/lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="../../assets/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link href="../../assets/css/style.css" rel="stylesheet">
+<form *ngIf="user" (ngSubmit)="submitBooking()" #bookingForm="ngForm" class="p-4 bg-light rounded">
+  <div *ngFor="let detail of bookingData.details; let i = index" class="border p-3 rounded mb-3 bg-white">
+    <div class="row mb-2">
+      <div class="col-md-4">
+        <label class="form-label">Select Room</label>
+        <select class="form-select" [(ngModel)]="detail.roomId" name="roomId{{ i }}" required>
+          <option *ngFor="let room of rooms" [ngValue]="room.id" [hidden]="isRoomAlrSelected(room.id)">Roomid: {{ room.id }} - No: {{ room.room_No }} - {{ room.type }}</option>
+        </select>
+      </div>
+                      <div class="col-md-2">
+    <button type="button" class="btn btn-outline-primary btn-sm"
+            [disabled]="!detail.roomId"
+            (click)="viewRoom(detail.roomId)">
+      View Room
+    </button>
+  </div>
+         <div class="container-fluid pb-5 wow fadeIn" data-wow-delay="0.1s">
+                <div class="bg-white shadow" style="padding: 35px;">
+                    <div class="row g-2">
+                        <div class="col-md-10">
+                            <div class="row g-2">
+                                <div class="col-md-3">
+                                    <label for="" class="form-label">Check-in date</label>
+                                    <div class="date" id="date1" data-target-input="nearest">
+                                        <input
+                                        class="form-control"                               
+                                        mwlFlatpickr
+                                        [(ngModel)]="detail.checkinDate"
+                                        name="checkin{{ i }}"
+                                        [enableTime]="true"
+                                        [dateFormat]="'Y-m-d H:i'"
+                                      />
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <label for="" class="form-label">Check-out date</label>
+                                    <div class="date" id="date2" data-target-input="nearest">
+                                        <input
+                                          mwlFlatpickr
+                                        class="form-control"                               
+                                          [(ngModel)]="detail.checkoutDate"
+                                          name="checkout{{ i }}"
+                                          [enableTime]="true"
+                                          [dateFormat]="'Y-m-d H:i'"
+                                        />  
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <!-- Booking End -->
+    </div>
+  <!-- <div *ngIf="services.length > 0" class="mb-2">
+  <label class="form-label">Dịch vụ kèm theo</label>
+  <div *ngFor="let service of services">
+    <div class="form-check d-flex align-items-center gap-2">
+      <input class="form-check-input"  name="serviceQty{{i}}_{{service.id}}"
+             type="checkbox"
+             [checked]="isServiceSelected(detail, service.id)"
+             (change)="toggleService(detail, service)">
+      <label class="form-check-label w-100">
+        {{ service.title }} - {{ service.price | number }} ₫
+      </label>
+      <input *ngIf="isServiceSelected(detail, service.id)"
+             type="number"
+              name="serviceQty{{i}}_{{service.id}}"
+             min="1"
+             max="{{ service.stockQuantity }}"
+             [ngModel]="getServiceQty(detail, service.id)"
+             (ngModelChange)="updateServiceQty(detail, service.id, $event)"
+             class="form-control form-control-sm"
+             style="max-width: 80px;">
+    </div>
+  </div>
+</div> -->
+  <div *ngFor="let category of getCategoryNames()" class="mb-3 border rounded p-2 bg-white">
+  <div class="d-flex justify-content-between align-items-center" (click)="toggleCategory(category)" style="cursor: pointer;">
+    <strong>{{ category }}</strong>
+    <i class="fa" [class.fa-chevron-down]="categoryToggle[category]" [class.fa-chevron-right]="!categoryToggle[category]"></i>
+  </div>
+  <div *ngIf="categoryToggle[category]" class="mt-2 ps-2">
+    <div *ngFor="let service of groupedServices[category]" class="form-check d-flex align-items-center gap-2">
+      <input class="form-check-input"
+             type="checkbox"
+             [checked]="isServiceSelected(detail, service.id)"
+             (change)="toggleService(detail, service)">
+      <label class="form-check-label w-100">
+        {{ service.title }} - {{ service.price | number }} ₫
+      </label>
+      <input *ngIf="isServiceSelected(detail, service.id)"
+             type="number"
+              name="serviceQty{{i}}_{{service.id}}"
+             min="1"
+             max="{{ service.stockQuantity }}"
+             [ngModel]="getServiceQty(detail, service.id)"
+             (ngModelChange)="updateServiceQty(detail, service.id, $event)"
+             class="form-control form-control-sm"
+             style="max-width: 80px;">
+    </div>
+  </div>
+</div>
+
+        <div class="mb-2">
+    <label class="form-label">Price (VND ₫)</label>
+    <input type="number" class="form-control" [(ngModel)]="detail.price" name="price{{ i }}" readonly>
+    </div>
+    <div class="mb-2">
+      <label class="form-label">Room Note</label>
+      <input type="text" class="form-control" [(ngModel)]="detail.roomNote" name="roomNote{{ i }}">
+    </div>
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-danger btn-sm" type="button" (click)="removeDetail(i)" *ngIf="bookingData.details.length > 1">
+        Remove
+      </button>
+    </div>
+  </div>
+
+  <div class="mb-3 text-end">
+    <button type="button" class="btn btn-secondary" (click)="addRoom()">+ Add Room</button>
+  </div>
+
+  <div class="mb-3">
+    <label class="form-label">Note</label>
+    <textarea class="form-control" rows="3" [(ngModel)]="bookingData.note" name="note"></textarea>
+  </div>
+        <div class="text-end fs-5 fw-bold">
+        Total: {{ getTotalPrice()| number }} (VND ₫)
+        </div>
+
+  <button type="submit" class="btn btn-primary w-100">Submit Booking</button>
+</form>
+<!--Bootstrap top-up modal-->
+      <div
+        #topUpModal
+        class="modal fade"
+        id="topUpModal"
+        tabindex="-1"
+        aria-labelledby="topUpModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="topUpModalLabel">Room Details</h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body">
+              <app-room-detail [room]="defaultRoom"></app-room-detail>
+            </div>
+          </div>
+        </div>
+      </div>
