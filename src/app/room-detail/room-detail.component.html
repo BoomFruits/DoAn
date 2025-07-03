@@ -63,39 +63,39 @@
         <table class="table table-bordered table-striped">
           <tbody>
             <tr>
-              <th>Room No</th>
+              <th>Số phòng</th>
               <td>{{ room.room_No }}</td>
             </tr>
             <tr>
-              <th>Room Name</th>
+              <th>Tên phòng</th>
               <td>{{ room.room_Name }}</td>
             </tr>
             <tr>
-              <th>Capacity</th>
+              <th>Sức chứa</th>
               <td>{{ room.capacity }}</td>
             </tr>
             <tr>
-              <th>Type</th>
+              <th>Loại phòng</th>
               <td>{{ room.type }}</td>
             </tr>
             <tr>
-              <th>Price</th>
-              <td>{{ room.price }} / night</td>
+              <th>Giá phòng</th>
+              <td>{{ room.price }} / ngày</td>
             </tr>
             <tr>
-              <th>Beds</th>
+              <th>Số giường</th>
               <td>{{ room.bed }}</td>
             </tr>
             <tr>
-              <th>Baths</th>
+              <th>Số phòng tắm</th>
               <td>{{ room.bath }}</td>
             </tr>
             <tr>
-              <th>Area</th>
+              <th>Diện tích</th>
               <td>{{ room.area }}</td>
             </tr>
             <tr>
-              <th>Description</th>
+              <th>Mô tả phòng</th>
               <td>{{ room.description }}</td>
             </tr>
           </tbody>
@@ -105,16 +105,9 @@
           class="btn btn-sm btn-dark rounded py-2 px-4"
           (click)="navigateToBooking(room)"
           routerLinkActive="router-link-active"
-          >Book Now</a
+          >Đặt phòng</a
         >
       </div>
     </div>
-
-    <!-- <app-booking
-          *ngIf="showBooking"
-      [defaultRoom]="room"
-      [selectedDateCheckin]="selectedDateCheckin"
-      [selectedDateCheckout]="selectedDateCheckout"
-    ></app-booking> -->
   </div>
 </div>

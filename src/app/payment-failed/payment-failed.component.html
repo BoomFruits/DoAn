@@ -1,0 +1,17 @@
+  <!-- Customized Bootstrap Stylesheet -->
+    <link href="../../assets/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link href="../../assets/css/style.css" rel="stylesheet">
+<div class="d-flex flex-column align-items-center justify-content-center mt-5 text-center">
+  <img src="../../assets/img/FailedPayment.png" width="100" alt="Failed" />
+  <h2 class="text-danger mt-3">❌ Thanh toán thất bại</h2>
+  <p class="text-muted">
+    Giao dịch của bạn không được hoàn tất.
+    <br />
+    <ng-container *ngIf="method">Phương thức: <strong>{{ method }}</strong></ng-container>
+    <br />
+    <ng-container *ngIf="bookingId">Mã đơn hàng: #{{ bookingId }}</ng-container>
+  </p>
+  <a routerLink="/room" class="btn btn-outline-primary mt-3">🔙 Quay về trang phòng</a>
+</div>

@@ -1,69 +1,66 @@
 <form [formGroup]="form" (ngSubmit)="onSubmit()" enctype="multipart/form-data" class="p-4 bg-light rounded shadow-sm">
-  <h3 class="mb-4 text-primary">{{ isEdit ? 'Edit Room' : 'Add New Room' }}</h3>
-
-  <!-- Các field giống như cũ -->
+  <h3 class="mb-4 text-primary">{{ isEdit ? 'Sửa phòng' : 'Thêm mới phòng' }}</h3>
   <div class="mb-3">
-    <label>Room No</label>
+    <label>Số phòng</label>
     <input type="text" formControlName="room_No" class="form-control">
   </div>
 
   <div class="mb-3">
-    <label>Room Name</label>
+    <label>Tên phòng</label>
     <input type="text" formControlName="room_Name" class="form-control">
   </div>
 
   <div class="mb-3">
-    <label>Capacity</label>
+    <label>Sức chứa</label>
     <input type="number" formControlName="capacity" class="form-control">
   </div>
 
   <div class="mb-3">
-    <label>Type</label>
+    <label>Loại phòng</label>
     <select formControlName="type" class="form-select">
-      <option value="Single">Single</option>
-      <option value="Double">Double</option>
-      <option value="Triple">Triple</option>
-      <option value="Quad">Quad</option>
+      <option value="Single">Đơn</option>
+      <option value="Double">Đôi</option>
+      <option value="Suite">Cao cấp</option>
     </select>
   </div>
 
   <div class="mb-3">
-    <label>Price</label>
+    <label>Giá</label>
     <input type="number" formControlName="price" class="form-control">
   </div>
 
   <div class="mb-3">
-    <label>Available?</label>
+    <label>Tình trạng có sẵn?</label>
     <input type="checkbox" formControlName="isAvailable" class="form-check-input ms-2">
   </div>
 
   <div class="mb-3">
-    <label>Bed</label>
+    <label>Giường</label>
     <input type="number" formControlName="bed" class="form-control">
   </div>
 
   <div class="mb-3">
-    <label>Bath</label>
+    <label>Phòng tắm</label>
     <input type="number" formControlName="bath" class="form-control">
   </div>
 
   <div class="mb-3">
-    <label>Area (m²)</label>
+    <label>Diện tích (m²)</label>
     <input type="number" formControlName="area" class="form-control">
   </div>
 
   <div class="mb-3">
-    <label>Description</label>
+    <label>Mô tả phòng</label>
     <textarea formControlName="description" class="form-control"></textarea>
   </div>
 
   <div class="mb-3">
-    <label>Images</label>
+    <label>Hình ảnh</label>
     <input type="file" (change)="onFileChange($event)" class="form-control" multiple>
     <div class="preview-images mt-3" *ngFor="let img of selectedImages;let i = index">
       <!-- <img  [src]="typeof img === 'string' ? img :'https://localhost:7275'+roomData.images[i]" alt="preview" style="width:100px; height:100px; object-fit:cover; margin-right: 10px;"> -->
        <img
-            [src]="img.isServerImage ? 'https://localhost:7275'+roomData.images[i] : img.url"
+            [src]="img.isServerImage ? imageUrl+roomData.images[i] : img.url"
             alt="Room Image"
             width="100"
             height="100"
@@ -74,6 +71,6 @@
     </div>
   </div>
 
-  <button type="submit" class="btn btn-primary">{{ isEdit ? 'Update' : 'Save' }}</button>
+  <button type="submit" class="btn btn-primary">{{ isEdit ? 'Cập nhập' : 'Lưu' }}</button>
 
 </form>

@@ -15,14 +15,14 @@
     <thead class="table-light">
       <tr>
         <th>Email</th>
-        <th>Username</th>
-        <th>Phone</th>
-        <th>Role</th>
-        <th>Gender</th>
-        <th>Address</th>
-        <th>Created at</th>
-        <th>Updated at</th>
-        <th>Action</th>
+        <th>Họ và tên</th>
+        <th>Số điện thoại</th>
+        <th>Vai trò</th>
+        <th>Giới tính</th>
+        <th>Địa chỉ</th>
+        <th>Ngày tạo</th>
+        <th>Ngày cập nhập</th>
+        <th>Hành động</th>
       </tr>
     </thead>
     <tbody>
@@ -73,18 +73,18 @@
         <td>
           <ng-container *ngIf="editingUserId === u.id; else normalButtons">
             <button class="btn btn-sm btn-success me-1" (click)="save(u.id)">
-              Save
+              Lưu
             </button>
             <button class="btn btn-sm btn-secondary" (click)="cancel()">
-              Cancel
+              Huỷ
             </button>
           </ng-container>
           <ng-template #normalButtons>
             <button class="btn btn-sm btn-warning me-1" (click)="edit(u)">
-              Edit
+              Sửa
             </button>
             <button class="btn btn-sm btn-danger" (click)="delete(u.id)">
-              Delete
+              Xoá
             </button>
           </ng-template>
         </td>

@@ -69,7 +69,7 @@ topRoomsChartData!: ChartData<'bar'>;
 monthlyRevenueChartData!: ChartData<'line'>;
 monthlyBookingsChartData!: ChartData<'bar'>;
 chartBarData: ChartData<'bar'> = {
-  labels: ['Total booking', 'Room active', 'Checkin today', 'Checkout today','Today booking','MonthBookings'],
+  labels: ['Tổng số đặt', 'Phòng hoạt động', 'Checkin hôm nay', 'Checkout hôm nay','Số lượng đặt phòng hôm nay','Số lượng đặt phòng trong tháng'],
   datasets: [
     {
       label: 'Thống kê tổng quan',
@@ -109,7 +109,7 @@ options = {
       this.activeRooms = res.activeRooms;
       this.todayCheckins = res.todayCheckins;
       this.todayCheckouts = res.todayCheckouts;
-
+      this.userCount = res.userCount;
       // Bar chart tổng quan
       this.chartBarData = {
         labels: ['Tổng đặt phòng', 'Phòng hoạt động', 'Checkin hôm nay', 'Checkout hôm nay'],
@@ -122,27 +122,27 @@ options = {
 
       // Top dịch vụ
       this.topServicesChartData = {
-        labels: res.topServices.map(s => s.serviceName),
+        labels: res.topServices.map(s => s.serviceName) ?? [],
         datasets: [{
           label: 'Dịch vụ phổ biến',
           backgroundColor: '#42A5F5',
-          data: res.topServices.map(s => s.totalUsed)
+          data: res.topServices.map(s => s.totalUsed) ?? []
         }]
       };
 
       // Top phòng
       this.topRoomsChartData = {
-        labels: res.topRooms.map(r => r.roomNo),
+        labels: res.topRooms.map(r => r.roomNo) ?? [],
         datasets: [{
           label: 'Lượt đặt phòng',
           backgroundColor: '#66BB6A',
-          data: res.topRooms.map(r => r.count)
+          data: res.topRooms.map(r => r.count) ?? []
         }]
       };
 
       // Monthly revenue
       const revenueByMonth = Array(12).fill(0);
-      res.monthlyRevenue.forEach(m => revenueByMonth[m.month - 1] = m.revenue);
+      (res.monthlyRevenue ?? []).forEach(m => revenueByMonth[m.month - 1] = m.revenue);
       this.monthlyRevenueChartData = {
         labels: this.months,
         datasets: [{
@@ -150,19 +150,19 @@ options = {
           data: revenueByMonth,
           borderColor: '#EF5350',
           backgroundColor: 'rgba(239,83,80,0.2)',
-          fill: true
+          fill: false
         }]
       };
 
       // Monthly bookings
       const bookingsByMonth = Array(12).fill(0);
-      res.monthlyBookings.forEach(m => bookingsByMonth[m.month - 1] = m.count);
+      (res.monthlyBookings ?? []).forEach(m => bookingsByMonth[m.month - 1] = m.count);
       this.monthlyBookingsChartData = {
         labels: this.months,
         datasets: [{
           label: 'Lượt đặt',
           backgroundColor: '#FFA726',
-          data: bookingsByMonth
+          data: bookingsByMonth,
         }]
       };
     });

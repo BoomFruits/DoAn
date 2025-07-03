@@ -12,7 +12,7 @@ import {
 import { IconDirective } from '@coreui/icons-angular';
 import { RouterLink } from '@angular/router';
 import { NavComponent, NavItemComponent, NavLinkDirective } from '@coreui/angular';
-import packageJson from 'D:/Code/DoAnFrontend/doanfrontend/package.json'
+import packageJson from 'D:/Code/DoAn/doanfrontend/package.json'
 @Component({
     selector: 'app-docs-example',
     templateUrl: './docs-example.component.html',

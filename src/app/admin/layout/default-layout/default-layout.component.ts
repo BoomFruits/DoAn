@@ -51,5 +51,36 @@ function isOverflown(element: HTMLElement) {
   ]
 })
 export class DefaultLayoutComponent {
-  public navItems = [...navItems];
+  public   navItems = [
+    {
+      name: 'Dashboard',
+      url: '/admin/dashboard',
+      iconComponent: { name: 'cil-speedometer' },
+    },
+    {
+      name: 'Phòng',
+      url: '/admin/room',
+      iconComponent: { name: 'cil-home' },
+    },
+    {
+      name: 'Sản phẩm',
+      url: '/admin/product',
+      iconComponent: { name: 'cil-square' },
+    },
+    {
+      name: 'Đơn đặt phòng',
+      url: '/admin/booking',
+      iconComponent: { name: 'cil-calendar' },
+    },
+    {
+      name: 'Danh mục',
+      url: '/admin/category',
+      iconComponent: { name: 'cil-list' },
+    },
+    {
+      name: 'Người dùng',
+      url: '/admin/user',
+      iconComponent: { name: 'cil-user' },
+    }
+  ];
 }

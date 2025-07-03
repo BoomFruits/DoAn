@@ -6,7 +6,7 @@ import { FormsModule } from '@angular/forms';
 import {  FacebookLoginProvider, GoogleSigninButtonModule, SocialAuthService, SocialLoginModule, SocialUser} from '@abacritt/angularx-social-login';
 import { HttpClient } from '@angular/common/http';
 import { UserService } from '../services/user.service';
-import { User } from '../../model/User.model';
+import { User } from '../../model/user.model';
 
 
 @Component({
@@ -39,7 +39,7 @@ export class LoginComponent implements OnInit{
                 this.userService.getUserById(userId).subscribe(userDb => {
                   this.userDb = userDb;
                   if (!this.userDb.phoneNumber || !this.userDb.address) {
-                    alert("Login successfully! Your default password have been sent to your email.")
+                    alert("Đăng nhập thành công! Mật khẩu mặc định đã được gửi tới email của bạn.")
                     this.router.navigate(['/profile']);
                   }else{
                     this.router.navigate(['/home']);
@@ -80,7 +80,6 @@ export class LoginComponent implements OnInit{
     this.auth.login(this.email,this.password).subscribe({
       next: ()=> {
         if(!this.auth.isAdmin()){
-                    console.log("User Login successfully")
         this.router.navigate(['/home'])
         }else{
           console.log("Admin login successfully")
@@ -88,7 +87,7 @@ export class LoginComponent implements OnInit{
         }
 
       },
-      error: err => this.error = 'Login failed'
+      error: err => this.error = 'Đăng nhập thất bại'
     })
   }
 }

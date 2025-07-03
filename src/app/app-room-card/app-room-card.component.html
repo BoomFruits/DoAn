@@ -1,17 +1,4 @@
-<!-- Google Web Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">  
-
-    <!-- Icon Font Stylesheet -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
-    <!-- Libraries Stylesheet -->
-    <link href="../../assets/lib/animate/animate.min.css" rel="stylesheet">
-    <link href="../../assets/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
-    <link href="../../assets/lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
-
-    <!-- Customized Bootstrap Stylesheet -->
+<!-- Customized Bootstrap Stylesheet -->
     <link href="../../assets/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Template Stylesheet -->
@@ -26,8 +13,8 @@
                     <div *ngFor="let room of rooms" class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
                         <div class="room-item shadow rounded overflow-hidden">
                             <div class="position-relative">
-                                <img class="img-fluid" [src]="'https://localhost:7275'+room.images[0]" alt="">
-                                <small class="position-absolute start-0 top-100 translate-middle-y bg-primary text-white rounded py-1 px-3 ms-4">{{ room.price }} VND/Night</small>
+                                <img class="img-fluid" [src]="imageUrl+room.images[0]" alt="">
+                                <small class="position-absolute start-0 top-100 translate-middle-y bg-primary text-white rounded py-1 px-3 ms-4">{{ room.price }} VND/Ngày</small>
                             </div>
                             <div class="p-4 mt-2">
                                 <div class="d-flex justify-content-between mb-3">
@@ -52,7 +39,7 @@
                 </div>
                 <ng-template >
                     <div #no_data>
-                        <h1 class="mb-5">No data <span class="text-primary text-uppercase">Rooms</span></h1>
+                        <h1 class="mb-5">Không có dữ liệu <span class="text-primary text-uppercase">phòng</span></h1>
                     </div>
                 </ng-template>         
         </div>

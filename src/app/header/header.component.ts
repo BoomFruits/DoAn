@@ -33,4 +33,7 @@ export class HeaderComponent {
       this.authService.logout();
       this.router.navigate(['/room'])
     }
+    isAdmin(){
+      return this.authService.isAdmin();
+    }
 }

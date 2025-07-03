@@ -60,21 +60,21 @@ export class RegisterComponent implements OnInit{
     if (!control) return '';
 
     if (control.hasError('required')) {
-      return 'Field is require';
+      return 'Trường này là bắt buộc';
     }
     if (control.hasError('minlength')) {
       const requiredLength = control.getError('minlength').requiredLength;
-      return `Need atleast ${requiredLength} characters`;
+      return `Cần ít nhất ${requiredLength} ký tự`;
     }
     if (control.hasError('maxlength')) {
       const maxLength = control.getError('maxlength').requiredLength;
-      return `Maximum ${maxLength} characters`;
+      return `Tối đa ${maxLength} ký tự`;
     }
     if (control.hasError('email')) {
-      return 'Invalid format';
+      return 'Định dạng không hợp lệ';
     }
     if (control.hasError('pattern')) {
-      return 'Invalid format';
+      return 'Định dạng không hợp lệ';
     }
     return '';
   }

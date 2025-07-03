@@ -13,7 +13,7 @@
           type="text"
           class="form-control"
           formControlName="title"
-          placeholder="Product name"
+          placeholder="Tên sản phẩm/dịch vụ"
         />
       </div>
       <div class="col-md-3">
@@ -22,7 +22,7 @@
           class="form-control"
           formControlName="price"
           [min]="0"
-          placeholder="Price"
+          placeholder="Giá"
         />
       </div>
       <div class="col-md-3">
@@ -31,7 +31,7 @@
           class="form-control"
           formControlName="stockQuantity"
           [min]="0"
-          placeholder="Stock"
+          placeholder="Số tồn kho"
         />
       </div>
       
@@ -40,11 +40,11 @@
           type="text"
           class="form-control"
           formControlName="unit"
-          placeholder="Unit"
+          placeholder="Đơn vị"
         />
       </div>
        <div class="col-md-2">
-        <label for="">Category</label>
+        <label for="">Danh mục</label>
         <select class="form-select" formControlName="categoryId">
                 <option *ngFor="let c of categories" [value]="c.id">{{ c.name }}</option>
           </select>
@@ -54,13 +54,13 @@
           class="form-control"
           rows="2"
           formControlName="description"
-          placeholder="Description"
+          placeholder="Mô tả"
         ></textarea>
       </div>
       <div class="col-12 mt-3 text-end">
-        <button type="submit" class="btn btn-primary me-2">Save</button>
+        <button type="submit" class="btn btn-primary me-2">Lưu</button>
         <button type="button" class="btn btn-secondary" (click)="resetForm()">
-          Cancel
+          Huỷ
         </button>
       </div>
     </div>
@@ -80,15 +80,15 @@
   <table class="table table-bordered table-hover table-striped">
     <thead class="table-light">
       <tr>
-        <th>Title</th>
-        <th>Price</th>
-        <th>Stock</th>
-        <th>Unit</th>
-        <th>Category</th>
-        <th>Description</th>
-        <th>Created at</th>
-        <th>Updated at</th>
-        <th>Action</th>
+        <th>Tên</th>
+        <th>Giá</th>
+        <th>Tồn kho</th>
+        <th>Đơn vị</th>
+        <th>Danh mục</th>
+        <th>Mô tả</th>
+        <th>Ngày tạo</th>
+        <th>Ngày cập nhập</th>
+        <th>Hành động</th>
       </tr>
     </thead>
     <tbody>

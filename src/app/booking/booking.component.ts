@@ -11,11 +11,12 @@ import { RoomService } from '../services/room.service';
 import { AuthService } from '../auth/auth.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RoomDetailComponent } from '../room-detail/room-detail.component';
-import { User } from '../../model/User.model';
+import { User } from '../../model/user.model';
 import { UserService } from '../services/user.service';
 import { ToastrService } from 'ngx-toastr';
 import { ProductService } from '../services/product.service';
 import { Product } from '../../model/product.model';
+import { Booking } from '../../model/booking.model';
 
 declare var bootstrap: any;
 @Component({
@@ -50,6 +51,7 @@ export class BookingComponent implements OnInit, DoCheck {
     details: [
       {
         roomId: this.defaultRoom?.id ?? null,
+        room_No: '',
         checkinDate: this.selectedDateCheckin.toISOString(),
         checkoutDate: this.selectedDateCheckout.toISOString(),
         roomNote: '',
@@ -98,6 +100,7 @@ categoryToggle: { [key: string]: boolean } = {}; // toggle trạng thái từng 
         this.bookingData.details = [
           {
             roomId: room.id,
+            room_No: room.room_No,
             checkinDate: new Date(this.selectedDateCheckin).toISOString(),
             checkoutDate: new Date(this.selectedDateCheckout).toISOString(),
             roomNote: '',
@@ -208,6 +211,7 @@ categoryToggle: { [key: string]: boolean } = {}; // toggle trạng thái từng 
   addRoom() {
     this.bookingData.details.push({
       roomId: null,
+      room_No: '',
       checkinDate: new Date(this.selectedDateCheckin).toISOString(),
       checkoutDate: new Date(this.selectedDateCheckout).toISOString(),
       roomNote: '',
@@ -241,13 +245,11 @@ categoryToggle: { [key: string]: boolean } = {}; // toggle trạng thái từng 
       }));
       this.bookingService.createBooking(this.bookingData).subscribe({
         next: (res) => {
-          this.toastr.success('Booking room successfully!');
+          this.toastr.success('Đặt phòng thành công!');
           const bookingId = res.bookingId;
           this.router.navigate(['/payment', bookingId]);
         },
         error: (err) => {
-          // console.error('Lỗi đặt phòng:', err);
-          // console.log(JSON.stringify(err))
           if (err.status === 400 && err.error) {
             const msg = err.error.message || 'Đặt phòng thất bại.';
             const details = Array.isArray(err.error.errors)

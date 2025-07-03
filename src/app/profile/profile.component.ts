@@ -1,6 +1,6 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { User } from '../../model/User.model';
+import { User } from '../../model/user.model';
 import { AuthService } from '../auth/auth.service';
 import { UserService } from '../services/user.service';
 import { CommonModule } from '@angular/common';
@@ -29,10 +29,10 @@ export class ProfileComponent {
         next: (res) => {
           this.user = res;
           if (!this.user.address || !this.user.phoneNumber) {
-            alert('Please complete your profile before booking.');
+            alert('Hoàn thiện hồ sơ của bạn trước khi đặt phòng.');
           }
         },
-        error: (err) => console.error('Không lấy được user:', err),
+        error: (err) => console.error('Không lấy được thông tin người dùng:', err),
       });
     }
   }

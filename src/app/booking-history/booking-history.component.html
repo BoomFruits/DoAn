@@ -22,10 +22,10 @@
         <div class="container-fluid page-header mb-5 p-0" style="background-image: url(assets/img/carousel-1.jpg);">
             <div class="container-fluid page-header-inner py-5">
                 <div class="container text-center pb-5">
-                    <h1 class="display-3 text-white mb-3 animated slideInDown">Home</h1>
+                    <h1 class="display-3 text-white mb-3 animated slideInDown">Trang chủ</h1>
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb justify-content-center text-uppercase">
-                            <li class="breadcrumb-item" aria-current="page">Home</li>
+                            <li class="breadcrumb-item" aria-current="page">Trang chủ</li>
                         </ol>
                     </nav>
                 </div>
@@ -33,21 +33,21 @@
         </div>
         <!-- Page Header End -->
     <div class="px-4">
-  <h2 class="text-2xl font-bold text-center mb-6">History Booking</h2>
+  <h2 class="text-2xl font-bold text-center mb-6">Lịch sử đặt phòng</h2>
 
   <div class="overflow-x-auto flex justify-center">
     <table class="min-w-full border border-gray-300 text-sm text-center shadow-lg rounded-lg">
       <thead class="bg-gray-100 font-semibold">
         <tr>
-          <th class="px-4 py-2 border">Booking Id</th>
-          <th class="px-4 py-2 border">Book Date</th>
-          <th class="px-4 py-2 border">Payment</th>
-          <th class="px-4 py-2 border">Payment Status</th>
-          <th class="px-4 py-2 border">Payment Date</th>
-          <th class="px-4 py-2 border">Status</th>
-          <th class="px-4 py-2 border">Note</th>
-          <th class="px-4 py-2 border">Room Detail</th>
-          <th class="px-4 py-2 border">Action</th>
+          <th class="px-4 py-2 border">Mã đặt phòng</th>
+          <th class="px-4 py-2 border">Ngày đặt</th>
+          <th class="px-4 py-2 border">Phương thức thanh toán</th>
+          <th class="px-4 py-2 border">Trạng thái thanh toán</th>
+          <th class="px-4 py-2 border">Ngày thanh toán</th>
+          <th class="px-4 py-2 border">Trạng thái đơn</th>
+          <th class="px-4 py-2 border">Ghi chú</th>
+          <th class="px-4 py-2 border">Chi tiết đặt phòng</th>
+          <th class="px-4 py-2 border">Hành động</th>
         </tr>
       </thead>
       <tbody>
@@ -56,7 +56,7 @@
           <td class="px-4 py-2 border">{{ booking.bookingDate | date: 'short' }}</td>
           <td class="px-4 py-2 border">{{ booking.paymentMethod }}</td>
           <td class="px-4 py-2 border">  <span [class.text-success]="booking.isPaid" [class.text-danger]="!booking.isPaid">
-          {{ booking.isPaid ? 'Paid' : 'Unpaid' }}
+          {{ booking.isPaid ? 'Đã thanh toán' : 'Chưa thanh toán' }}
         </span></td>
           <td class="px-4 py-2 border">{{ booking.paymentDate | date: 'short' }}</td>
           <td class="px-4 py-2 border">
@@ -67,48 +67,47 @@
               'text-red-600 font-medium': booking.status === 2
             }">
               {{
-                booking.status === 0 ? 'Pending' :
-                booking.status === 1 ? 'Confirmed' :
-                booking.status === 3 ? 'Done':
-                'Canceled'
+                booking.status === 0 ? 'Chờ xác nhận' :
+                booking.status === 1 ? 'Đã thanh toán' :
+                booking.status === 3 ? 'Hoàn tất':
+                'Đã huỷ'
               }}
             </span>
           </td>
           <td class="px-4 py-2 border">{{ booking.note }}</td>
          <td class="px-4 py-2 border text-lg-start">
-  <ul>
-    
+  <ul>   
     <li *ngFor="let detail of booking.details" style="list-style-type: none;">
         <div class="mt-2 d-flex align-items-center gap-2">
-        <strong>Room_No:</strong> {{ detail.room_No }}
+        <strong>Số phòng:</strong> {{ detail.room_No }}
         <button class="btn btn-secondary btn-sm me-1"
                 (click)="viewRoom(detail.roomId)">
-          View Room
+          Xem phòng
         </button>
       </div>
-      <strong>Time:</strong> {{ detail.checkinDate | date }} → {{ detail.checkoutDate | date }}<br />
-      <strong>Price/day:</strong> {{ detail.price | number }} VNĐ
+      <strong>Ngày ở:</strong> {{ detail.checkinDate | date }} → {{ detail.checkoutDate | date }}<br />
+      <strong>Giá/ngày:</strong> {{ detail.price | number }} VNĐ
           <!-- Hiển thị dịch vụ -->
-      <div *ngIf="booking.services?.length > 0">
+      <div *ngIf="detail.services?.length > 0">
         <strong>Dịch vụ:</strong>
         <ul class="ps-3">
-          <li *ngFor="let service of booking.services">
+          <li *ngFor="let service of detail.services">
             {{ service.title }} - {{ service.amount }} x {{ service.price | number }}₫ = {{ service.amount * service.price | number }}₫
           </li>
         </ul>
       </div>
-      <hr class="my-2 border-gray-200" />
-      <strong>Total price: {{ booking.totalPrice | number}} VNĐ</strong>
+        <hr class="my-2 border-gray-300" />
     </li>
+      <strong>Tổng tiền: {{ booking.totalPrice | number}} VNĐ</strong>
   </ul>
 </td>
-<td  *ngIf="!booking.isPaid && booking.status != 3" class="px-4 py-2 border">
+<td  *ngIf="!booking.isPaid && booking.status != 2" class="px-4 py-2 border">
         <button  class="btn btn-primary btn-sm"
                 (click)="makePayment(booking.id)">
-          Payment now
+          Thanh toán
         </button>
         <button class="btn btn-danger btn-sm" (click)="cancelBooking(booking.id)">
-            Cancel
+            Huỷ
         </button>
 </td>
         </tr>

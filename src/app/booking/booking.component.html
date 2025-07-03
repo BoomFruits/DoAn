@@ -20,16 +20,16 @@
   <div *ngFor="let detail of bookingData.details; let i = index" class="border p-3 rounded mb-3 bg-white">
     <div class="row mb-2">
       <div class="col-md-4">
-        <label class="form-label">Select Room</label>
+        <label class="form-label">Chọn phòng</label>
         <select class="form-select" [(ngModel)]="detail.roomId" name="roomId{{ i }}" required>
-          <option *ngFor="let room of rooms" [ngValue]="room.id" [hidden]="isRoomAlrSelected(room.id)">Roomid: {{ room.id }} - No: {{ room.room_No }} - {{ room.type }}</option>
+          <option *ngFor="let room of rooms" [ngValue]="room.id" [hidden]="isRoomAlrSelected(room.id)">Mã phòng: {{ room.id }} - số: {{ room.room_No }} - {{ room.type }}</option>
         </select>
       </div>
                       <div class="col-md-2">
     <button type="button" class="btn btn-outline-primary btn-sm"
             [disabled]="!detail.roomId"
             (click)="viewRoom(detail.roomId)">
-      View Room
+      Xem phòng
     </button>
   </div>
          <div class="container-fluid pb-5 wow fadeIn" data-wow-delay="0.1s">
@@ -38,7 +38,7 @@
                         <div class="col-md-10">
                             <div class="row g-2">
                                 <div class="col-md-3">
-                                    <label for="" class="form-label">Check-in date</label>
+                                    <label for="" class="form-label">Ngày Check-in</label>
                                     <div class="date" id="date1" data-target-input="nearest">
                                         <input
                                         class="form-control"                               
@@ -51,7 +51,7 @@
                                     </div>
                                 </div>
                                 <div class="col-md-3">
-                                    <label for="" class="form-label">Check-out date</label>
+                                    <label for="" class="form-label">Ngày Check-out</label>
                                     <div class="date" id="date2" data-target-input="nearest">
                                         <input
                                           mwlFlatpickr
@@ -70,29 +70,6 @@
             </div>
         <!-- Booking End -->
     </div>
-  <!-- <div *ngIf="services.length > 0" class="mb-2">
-  <label class="form-label">Dịch vụ kèm theo</label>
-  <div *ngFor="let service of services">
-    <div class="form-check d-flex align-items-center gap-2">
-      <input class="form-check-input"  name="serviceQty{{i}}_{{service.id}}"
-             type="checkbox"
-             [checked]="isServiceSelected(detail, service.id)"
-             (change)="toggleService(detail, service)">
-      <label class="form-check-label w-100">
-        {{ service.title }} - {{ service.price | number }} ₫
-      </label>
-      <input *ngIf="isServiceSelected(detail, service.id)"
-             type="number"
-              name="serviceQty{{i}}_{{service.id}}"
-             min="1"
-             max="{{ service.stockQuantity }}"
-             [ngModel]="getServiceQty(detail, service.id)"
-             (ngModelChange)="updateServiceQty(detail, service.id, $event)"
-             class="form-control form-control-sm"
-             style="max-width: 80px;">
-    </div>
-  </div>
-</div> -->
   <div *ngFor="let category of getCategoryNames()" class="mb-3 border rounded p-2 bg-white">
   <div class="d-flex justify-content-between align-items-center" (click)="toggleCategory(category)" style="cursor: pointer;">
     <strong>{{ category }}</strong>
@@ -121,33 +98,33 @@
 </div>
 
         <div class="mb-2">
-    <label class="form-label">Price (VND ₫)</label>
+    <label class="form-label">Giá (VND ₫)</label>
     <input type="number" class="form-control" [(ngModel)]="detail.price" name="price{{ i }}" readonly>
     </div>
     <div class="mb-2">
-      <label class="form-label">Room Note</label>
+      <label class="form-label">Ghi chú phòng</label>
       <input type="text" class="form-control" [(ngModel)]="detail.roomNote" name="roomNote{{ i }}">
     </div>
     <div class="d-flex justify-content-end">
       <button class="btn btn-danger btn-sm" type="button" (click)="removeDetail(i)" *ngIf="bookingData.details.length > 1">
-        Remove
+        Xoá
       </button>
     </div>
   </div>
 
   <div class="mb-3 text-end">
-    <button type="button" class="btn btn-secondary" (click)="addRoom()">+ Add Room</button>
+    <button type="button" class="btn btn-secondary" (click)="addRoom()">+ Thêm phòng khác</button>
   </div>
 
   <div class="mb-3">
-    <label class="form-label">Note</label>
+    <label class="form-label">Ghi chú</label>
     <textarea class="form-control" rows="3" [(ngModel)]="bookingData.note" name="note"></textarea>
   </div>
         <div class="text-end fs-5 fw-bold">
-        Total: {{ getTotalPrice()| number }} (VND ₫)
+        Tổng tiền: {{ getTotalPrice()| number }} (VND ₫)
         </div>
 
-  <button type="submit" class="btn btn-primary w-100">Submit Booking</button>
+  <button type="submit" class="btn btn-primary w-100">Xác nhận đặt phòng</button>
 </form>
 <!--Bootstrap top-up modal-->
       <div
@@ -161,7 +138,7 @@
         <div class="modal-dialog modal-lg modal-dialog-centered">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title" id="topUpModalLabel">Room Details</h5>
+              <h5 class="modal-title" id="topUpModalLabel">Chi tiết phòng</h5>
               <button
                 type="button"
                 class="btn-close"

@@ -7,42 +7,42 @@ import { Product } from '../../model/product.model';
 import { CreateProduct } from '../../model/createProduct.model';
 import { ProductFilter, PagedResult } from '../../model/productFilter.model';
 import { UpdateProduct } from '../../model/updateProduct.model';
+import { environment } from '../../../environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductService {
   cancelBooking(id: number) {
-    return this.http.delete(`${this.apiUrl}/cancel/${id}`, {});
+    return this.http.delete(`${environment.apiUrl}/product/cancel/${id}`, {});
   }
-  private apiUrl = 'https://localhost:7275/api/product';
 
   constructor(private http: HttpClient) {}
    getAll(): Observable<Product[]> {
-    return this.http.get<Product[]>(`${this.apiUrl}`);
+    return this.http.get<Product[]>(`${environment.apiUrl}/product`);
   }
 
   getById(id: number): Observable<Product> {
-    return this.http.get<Product>(`${this.apiUrl}/${id}`);
+    return this.http.get<Product>(`${environment.apiUrl}/product/${id}`);
   }
 
   create(product: Product): Observable<any> {
-    return this.http.post(this.apiUrl, product);
+    return this.http.post(`${environment.apiUrl}/product`, product);
   }
 
   update(product: Product): Observable<Product> {
-    return this.http.put<Product>(`${this.apiUrl}/${product.id}`, product);
+    return this.http.put<Product>(`${environment.apiUrl}/product/${product.id}`, product);
   }
 
   delete(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/${id}`);
+    return this.http.delete<void>(`${environment.apiUrl}/product/${id}`);
   }
 
   filter(filter: ProductFilter): Observable<PagedResult<Product>> {
-    return this.http.post<PagedResult<Product>>(`${this.apiUrl}/filter`, filter);
+    return this.http.post<PagedResult<Product>>(`${environment.apiUrl}/product/filter`, filter);
   }
   getImageFullPath(relativePath: string): string {
-    return `https://localhost:7275${relativePath}`;
+    return `${environment.apiUrl}${relativePath}`;
   }
 
 }

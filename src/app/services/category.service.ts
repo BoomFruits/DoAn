@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from '../../../environment';
 
 export interface Category {
   id: number;
@@ -9,27 +10,25 @@ export interface Category {
 
 @Injectable({ providedIn: 'root' })
 export class CategoryService {
-  private apiUrl = 'https://localhost:7275/api/categories';
-
   constructor(private http: HttpClient) {}
 
   getAll(): Observable<Category[]> {
-    return this.http.get<Category[]>(this.apiUrl);
+    return this.http.get<Category[]>(`${environment.apiUrl}/categories`);
   }
 
   getById(id: number): Observable<Category> {
-    return this.http.get<Category>(`${this.apiUrl}/${id}`);
+    return this.http.get<Category>(`${environment.apiUrl}/categories/${id}`);
   }
 
   create(name: string): Observable<Category> {
-    return this.http.post<Category>(this.apiUrl, name);
+    return this.http.post<Category>(`${environment.apiUrl}/categories`, name);
   }
 
   update(id: number, name: string): Observable<Category> {
-    return this.http.put<Category>(`${this.apiUrl}/${id}`, name);
+    return this.http.put<Category>(`${environment.apiUrl}/categories/${id}`, name);
   }
 
   delete(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/${id}`);
+    return this.http.delete<void>(`${environment.apiUrl}/categories/${id}`);
   }
 }

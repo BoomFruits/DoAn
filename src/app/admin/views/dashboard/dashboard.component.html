@@ -16,18 +16,18 @@
 </div>
 <c-card>
   <c-card-body>
-    <h6 class="text-sm text-muted">Total booking</h6>
+    <h6 class="text-sm text-muted">Tổng số đặt phòng</h6>
     <h3 class="text-lg font-semibold mb-3">{{ totalBookings }}</h3>
 
     <table class="w-full text-sm">
       <tbody>
         <tr>
-          <td class="text-muted">✔️ Success</td>
+          <td class="text-muted">✔️ Thành công</td>
           <td class="text-end font-medium">{{ successCount }}</td>
-          <td class="text-muted">Rate <span class="text-success">({{ (successCount / totalBookings * 100) | number: '1.0-0' }}%)</span></td>
+          <td class="text-muted">Tỷ lệ <span class="text-success">({{ (successCount / totalBookings * 100) | number: '1.0-0' }}%)</span></td>
         </tr>
         <tr>
-          <td class="text-muted">❌ Canceled</td>
+          <td class="text-muted">❌ Huỷ</td>
           <td class="text-end font-medium">{{ canceledCount }}</td>
         </tr>
       </tbody>
@@ -37,39 +37,39 @@
 
 <c-card>
     <c-card-body>
-      <h6 class="text-sm text-muted">Total user</h6>
+      <h6 class="text-sm text-muted">Tổng số người dùng</h6>
       <h3 class="text-lg font-semibold">{{ userCount }}</h3>
     </c-card-body>
   </c-card>
   <c-card>
     <c-card-body>
-      <h6 class="text-sm text-muted">Total room active</h6>
+      <h6 class="text-sm text-muted">Tổng số phòng hoạt động</h6>
       <h3 class="text-lg font-semibold">{{ activeRooms }}</h3>
     </c-card-body>
   </c-card>
 
   <c-card>
     <c-card-body>
-      <h6 class="text-sm text-muted">Total Checkin today</h6>
+      <h6 class="text-sm text-muted">Số check-in hôm nay</h6>
       <h3 class="text-lg font-semibold">{{ todayCheckins }}</h3>
     </c-card-body>
   </c-card>
 
   <c-card>
     <c-card-body>
-      <h6 class="text-sm text-muted">Total checkout today</h6>
+      <h6 class="text-sm text-muted">Số check-out hôm nay</h6>
       <h3 class="text-lg font-semibold">{{ todayCheckouts }}</h3>
     </c-card-body>
   </c-card>
 </div>
 
 <c-card class="mb-4">
-  <c-card-header>Statistic Details</c-card-header>
+  <c-card-header>Chi tiết thống kê</c-card-header>
   <c-card-body>
     <c-chart type="bar" [data]="chartBarData" [options]="options" />
   </c-card-body>
 </c-card>
-<c-chart type="bar" [data]="topServicesChartData"></c-chart>
+<c-chart *ngIf="chartBarData?.datasets?.length" type="bar" [data]="topServicesChartData"></c-chart>
 <c-chart type="bar" [data]="topRoomsChartData"></c-chart>
 <c-chart type="bar" [data]="monthlyBookingsChartData"></c-chart>
 <c-chart type="line" [data]="monthlyRevenueChartData"></c-chart>

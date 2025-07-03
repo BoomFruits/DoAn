@@ -1,5 +1,5 @@
 <div class="container py-4">
-  <h4>Quản lý Booking</h4>
+  <h4>Quản lý đặt phòng</h4>
 
   <div class="mb-3">
     <input
@@ -13,15 +13,17 @@
     <thead class="table-light">
       <tr>
         <th>#</th>
-        <th>Customer</th>
+        <th>Tên khách</th>
         <th>Email</th>
         <th>Checkin</th>
-        <th>Details</th>
-        <th>Total price</th>
+        <th>Chi tiết</th>
+        <th>Tổng tiền</th>
         <th>Checkout</th>
-        <th>Payment</th>
-        <th>Status</th>
-        <th>Created date</th>
+        <th>Thanh toán</th>
+        <th>Trạng thái đặt phòng</th>
+        <th>Ngày tạo</th>
+        <th>Ngày thanh toán</th>
+        <th>Hành động</th>
       </tr>
     </thead>
     <tbody>
@@ -35,11 +37,11 @@
             <td>
               <div class="d-flex justify-content-between align-items-center">
                 <div>
-                  <strong>Room:</strong> {{ room.room_No }} - {{ room.room_Name
+                  <strong>Phòng:</strong> {{ room.room_No }} - {{ room.room_Name
                   }}<br />
-                  <strong>Time:</strong> {{ formatDate(room.checkinDate) }} →
+                  <strong>Thời gian lưu trú:</strong> {{ formatDate(room.checkinDate) }} →
                   {{ formatDate(room.checkoutDate) }}<br />
-                  <strong>Price:</strong> {{ room.price | number }} VNĐ
+                  <strong>Giá:</strong> {{ room.price | number }} VNĐ
                 </div>
                 <div>
                   <button
@@ -57,7 +59,7 @@
                     Check out
                   </button>
                   <span *ngIf="room.isCheckedOut" class="badge bg-info"
-                    >Completed</span
+                    >Hoàn thành</span
                   >
                 </div>
               </div>
@@ -75,13 +77,17 @@
               'bg-warning': b.status === 0,
               'bg-success': b.status === 1 && b.isPaid,
               'bg-danger': b.status === 2,
-              'bg-info': b.status === 3
+              'bg-info': b.status === 3 && b.isPaid
             }"
           >
             {{ getStatusName(b.status) }}
           </span>
         </td>
         <td>{{ formatDate(b.bookingDate) }}</td>
+        <td>{{ formatDate(b.paymentDate) }}</td>
+        <td>
+            <button *ngIf="b.status != 3"  class="btn btn-danger btn-sm"  (click)="deleteBooking(b.id)">Xoá</button>
+        </td>
       </tr>
     </tbody>
   </table>

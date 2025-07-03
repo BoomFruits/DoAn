@@ -22,15 +22,14 @@ export class BookingHistoryComponent implements OnInit{
     this.router.navigate(['/payment',bookingId])
   }
   cancelBooking(bookingId: number): void {
-  if (confirm('Are you sure you want to cancel this booking?')) {
+  if (confirm('Bạn có chắc muốn huỷ đặt phòng?')) {
     this.bookingService.cancelBooking(bookingId).subscribe({
       next: () => {
-        this.toastr.success('Booking canceled successfully');
-        this.loadBookings(); // Refresh list nếu cần
+        this.toastr.success('Huỷ đặt phòng thành công');
+        this.loadBookings(); 
       },
       error: (err) => {
-        console.error('Cancel booking failed', err);
-        this.toastr.error('Failed to cancel booking');
+        this.toastr.error('Huỷ đặt phòng thất bại', err);
       }
     });
   }

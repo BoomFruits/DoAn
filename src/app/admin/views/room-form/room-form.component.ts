@@ -1,20 +1,28 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  OnInit,
+  Output,
+  SimpleChanges,
+} from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 
 import { CommonModule } from '@angular/common';
 import { FormModule } from '@coreui/angular';
 import { RoomImage } from '../../../../model/RoomImage.model';
 import { AdminRoomService } from '../../../services/adminroom.service';
-
-
+import { environment } from '../../../../../environment';
 
 @Component({
   selector: 'app-room-form',
   templateUrl: './room-form.component.html',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule, FormModule]
+  imports: [ReactiveFormsModule, CommonModule, FormModule],
 })
 export class RoomFormComponent implements OnInit, OnChanges {
+  imageUrl = environment.imageUrl;
   @Input() isEdit: boolean = false;
   @Input() roomData: any;
   @Output() formSaved = new EventEmitter<void>();
@@ -36,42 +44,46 @@ export class RoomFormComponent implements OnInit, OnChanges {
       bed: [1],
       bath: [1],
       area: [20],
-      description: ['']
+      description: [''],
     });
-    
+
     if (this.isEdit && this.roomData) {
       this.form?.patchValue(this.roomData);
     }
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-  if (changes['roomData'] && this.roomData) {
-    this.form?.patchValue(this.roomData);
-    this.selectedImages = [];
-    this.selectedFiles = [];
+    if (changes['roomData'] && this.roomData) {
+      this.form?.patchValue(this.roomData);
+      this.selectedImages = [];
+      this.selectedFiles = [];
 
-    if (this.roomData.images && this.roomData.images.length > 0) {
-      this.selectedImages = this.roomData.images.map((imgPath: string, index: number) => ({
-        url: `${this.roomService.getImageBaseUrl()}${imgPath}`,
-        isServerImage: true,
-        id: index 
-      }));
+      if (this.roomData.images && this.roomData.images.length > 0) {
+        this.selectedImages = this.roomData.images.map(
+          (imgPath: string, index: number) => ({
+            url: `${this.roomService.getImageBaseUrl()}${imgPath}`,
+            isServerImage: true,
+            id: index,
+          })
+        );
+      }
+      console.log('Selected images:', this.selectedImages);
     }
-    console.log('Selected images:', this.selectedImages);
   }
-}
-
 
   onFileChange(event: Event): void {
     const input = event.target as HTMLInputElement;
     if (!input.files) return;
 
-    Array.from(input.files).forEach(file => {
+    Array.from(input.files).forEach((file) => {
       this.selectedFiles.push(file);
 
       const reader = new FileReader();
       reader.onload = (e: any) => {
-        this.selectedImages.push({ url: e.target.result, isServerImage: false });
+        this.selectedImages.push({
+          url: e.target.result,
+          isServerImage: false,
+        });
       };
       reader.readAsDataURL(file);
     });
@@ -81,7 +93,7 @@ export class RoomFormComponent implements OnInit, OnChanges {
 
   private updateFormImages(): void {
     const dataTransfer = new DataTransfer();
-    this.selectedFiles.forEach(file => dataTransfer.items.add(file));
+    this.selectedFiles.forEach((file) => dataTransfer.items.add(file));
     this.form.patchValue({ images: dataTransfer.files });
     this.form.get('Images')?.updateValueAndValidity();
   }
@@ -94,30 +106,33 @@ export class RoomFormComponent implements OnInit, OnChanges {
       formData.append(key, value as any);
     });
     if (this.isEdit && this.roomData) {
-        const keptImageUrls = this.selectedImages
-          .filter(si => si.isServerImage && si.url)
-          .map(si => si.url.replace(this.roomService.getImageBaseUrl(), '')); 
-        if (keptImageUrls.length > 0) {
-          formData.append('KeptImageUrls', JSON.stringify(keptImageUrls));
-        }
-}
+      const keptImageUrls = this.selectedImages //nếu là edit thêm giữ lại ảnh cũ
+        .filter((si) => si.isServerImage && si.url)
+        .map((si) => si.url.replace(this.roomService.getImageBaseUrl(), ''));
+      if (keptImageUrls.length > 0) {
+        formData.append('KeptImageUrls', JSON.stringify(keptImageUrls));
+      }
+    }
 
     // Append new files
-    this.selectedFiles.forEach(file => {
+    this.selectedFiles.forEach((file) => {
       formData.append('NewImages', file);
     });
 
-    const request$ = this.isEdit && this.roomData
-      ? this.roomService.updateRoom(this.roomData.id, formData)
-      : this.roomService.createRoom(formData);
+    const request$ =
+      this.isEdit && this.roomData
+        ? this.roomService.updateRoom(this.roomData.id, formData)
+        : this.roomService.createRoom(formData);
 
     request$.subscribe({
       next: () => {
-        alert(this.isEdit ? 'Room updated!' : 'Room created!');
+        alert(
+          this.isEdit ? 'Cập nhật phòng thành công!' : 'Tạo phòng thành công!'
+        );
         this.resetForm();
         this.formSaved.emit();
       },
-      error: err => console.error('Error:', err)
+      error: (err) => console.error('Error:', err),
     });
   }
 
@@ -126,7 +141,7 @@ export class RoomFormComponent implements OnInit, OnChanges {
     this.selectedImages.splice(index, 1);
     if (!image.isServerImage) {
       this.selectedFiles.splice(index, 1);
-  }
+    }
   }
 
   resetForm(): void {
@@ -135,4 +150,3 @@ export class RoomFormComponent implements OnInit, OnChanges {
     this.selectedImages = [];
   }
 }
-

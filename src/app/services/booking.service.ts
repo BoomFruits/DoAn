@@ -4,16 +4,15 @@ import { HttpClient } from '@angular/common/http';
 import { formatDate } from '@angular/common';
 import { Observable } from 'rxjs';
 import { Booking } from '../../model/booking.model';
+import { environment } from '../../../environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class BookingService {
   cancelBooking(id: number) {
-    return this.http.delete(`${this.apiUrl}/cancel/${id}`, {});
+    return this.http.delete(`${environment.apiUrl}`+`/booking/cancel/${id}`, {});
   }
-  private apiUrl = 'https://localhost:7275/api/booking';
-
   constructor(private http: HttpClient) {}
 
   calculateDays(checkin: string | Date, checkout: string | Date): number {
@@ -41,21 +40,24 @@ export class BookingService {
     });
   }
   checkIn(bookingId: number,roomId: number): Observable<any>{
-    return this.http.post(this.apiUrl+`/checkin/${bookingId}/${roomId}`, {});
+    return this.http.post(`${environment.apiUrl}`+`/booking/checkin/${bookingId}/${roomId}`, {});
   }
   checkOut(bookingId: number,roomId: number): Observable<any>{
-    return this.http.post(this.apiUrl+`/checkout/${bookingId}/${roomId}`, {});
+    return this.http.post(`${environment.apiUrl}`+`/booking/checkout/${bookingId}/${roomId}`, {});
   }
   createBooking(data: any): Observable<any> {
-    return this.http.post(this.apiUrl, data);
+    return this.http.post<any>(`${environment.apiUrl}`+`/booking`, data);
   }
   getMyBookings(){
-    return this.http.get<any[]>(this.apiUrl+'/my-bookings')
+    return this.http.get<any[]>(`${environment.apiUrl}`+`/booking/my-bookings`)
   }
   getBookingDetail(bookingId: string): Observable<any>{
-    return this.http.get<any[]>(this.apiUrl+'/'+bookingId)
+    return this.http.get<any[]>(`${environment.apiUrl}/booking/`+bookingId)
   }
   getAll(): Observable<Booking[]>{
-     return this.http.get<Booking[]>(`${this.apiUrl}/get_all`);
+     return this.http.get<Booking[]>(`${environment.apiUrl}`+`/booking/get_all`);
+  }
+  deleteBooking(bookingId: number): Observable<any>{
+      return this.http.delete(`${environment.apiUrl}`+`/booking/delete/`+bookingId, {})
   }
 }

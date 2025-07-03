@@ -5,10 +5,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../auth/auth.service';
 import { HttpClient } from '@angular/common/http';
 import { UserService } from '../services/user.service';
-import { User } from '../../model/User.model';
+import { User } from '../../model/user.model';
 import { BookingService } from '../services/booking.service';
 import { ToastrService } from 'ngx-toastr';
-
+import { PaymentService } from '../services/payment.service';
 @Component({
   selector: 'app-payment',
   encapsulation: ViewEncapsulation.None,
@@ -27,6 +27,7 @@ export class PaymentComponent implements OnInit {
     private bookingService: BookingService,
     private userService: UserService,
     private authService: AuthService,
+    private paymentService: PaymentService,
     private http: HttpClient,
     private toastr: ToastrService,
     private route: ActivatedRoute
@@ -42,7 +43,7 @@ export class PaymentComponent implements OnInit {
       const bookingId = params.get('bookingId');
       if (bookingId) {
         this.bookingService.getBookingDetail(bookingId).subscribe((data) => {
-          console.log("booking data api: ",data);
+          console.log('booking data api: ', data);
           this.booking = data;
           this.totalPrice = data.totalPrice;
         });
@@ -51,7 +52,7 @@ export class PaymentComponent implements OnInit {
   }
   submitPayment() {
     if (!this.booking?.bookingId) {
-                    this.toastr.error('Not found booking')
+      this.toastr.error('Mã đơn không tìm thấy');
       return;
     }
     switch (this.paymentMethod) {
@@ -65,7 +66,7 @@ export class PaymentComponent implements OnInit {
         this.payWithCash();
         break;
       default:
-                            this.toastr.error('Payment not valid')
+        this.toastr.error('Phương thức thanh toán không hợp lệ');
     }
   }
 
@@ -75,19 +76,14 @@ export class PaymentComponent implements OnInit {
       BookingId: this.booking.bookingId,
       CreatedDate: new Date(),
     };
-    this.http
-      .post(
-        'https://localhost:7275/api/payment/vnpay/create-payment',
-        payload,
-        { responseType: 'text' }
-      )
+    this.paymentService.createVNPayPayment(payload)
       .subscribe({
         next: (paymentUrl) => {
           window.location.href = paymentUrl;
         },
         error: (err) => {
           console.error(err);
-                    this.toastr.error('Payment VNPay error')
+                  this.toastr.error('Thanh toán VNPay lỗi');
         },
       });
   }
@@ -95,24 +91,19 @@ export class PaymentComponent implements OnInit {
     const payload = {
       baseUrl: 'https://localhost:4200',
       bookingId: this.booking.bookingId,
-        tax: 0,
-  shipping: 0,
+      tax: 0,
+      shipping: 0,
       items: [
         {
           name: 'Hotel Booking',
           currency: 'USD',
-          price: (this.totalPrice / 24000).toFixed(2), // Chuyển từ VND sang USD (ví dụ)
+          price: (this.totalPrice / 24000).toFixed(2), // Chuyển từ VND sang USD
           quantity: '1',
           sku: 'booking',
         },
       ],
     };
-
-    this.http
-      .post<any>(
-        'https://localhost:7275/api/payment/paypal/create-payment',
-        payload
-      )
+    this.paymentService.createPaypalPayment(payload)
       .subscribe({
         next: (res) => {
           const approvalUrl = res.links.find(
@@ -121,15 +112,17 @@ export class PaymentComponent implements OnInit {
           if (approvalUrl) {
             window.location.href = approvalUrl; // Redirect đến PayPal
           } else {
-          this.toastr.error('Not found URL payment paypal')
+            this.toastr.error('Không tìm thấy đường dẫn thanh toán PayPal');
           }
         },
         error: () => {
-          this.toastr.error('Payment paypal error')
+            this.toastr.error('Thanh toán PayPal thất bại');
         },
       });
   }
   payWithCash() {
-     this.toastr.success('Booking successfully! Please make payment when checkin or after in history booking')
+    this.toastr.success(
+      'Đặt phòng thành công! Vui lòng thanh toán khi nhận phòng hoặc sau đó trong lịch sử đặt phòng.'
+    );
   }
 }

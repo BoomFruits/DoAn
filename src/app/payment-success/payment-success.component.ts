@@ -1,11 +1,11 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { HttpClient, HttpParams } from '@angular/common/http';
 @Component({
   selector: 'app-payment-success',
   standalone:true,
   encapsulation:ViewEncapsulation.None,
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './payment-success.component.html',
   styleUrl: './payment-success.component.scss'
 })
@@ -23,17 +23,15 @@ export class PaymentSuccessComponent implements OnInit{
     const method = params['method']; // 'VNPay' | 'PayPal'
     
     if (!bookingId) {
-      this.router.navigate(['/']); // fallback nếu thiếu param
+      this.router.navigate(['/']); 
     }
 
-    // Gọi API lấy chi tiết booking
     this.http.get<any>(`https://localhost:7275/api/booking/${bookingId}`).subscribe({
       next: (res) => {
-        console.log(res)
         this.booking = res;
       },
       error: () => {
-        this.message = "Not found booking info.";
+        this.message = "Không tìm thấy thông tin phòng.";
       }
     });
   });

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { User } from '../../../../model/User.model';
+import { User } from '../../../../model/user.model';
 import { UserService } from '../../../services/user.service';
 import { CommonModule } from '@angular/common';
 import { UpdateUserDTO } from '../../../../model/updateUserDTO.model';
@@ -72,7 +72,7 @@ export class UserAdminComponent implements OnInit {
   }
 
   delete(id: string) {
-    if (confirm('Xác nhận xoá người dùng?')) {
+    if (confirm('Confirm delete?')) {
       this.userService.delete(id).subscribe(() => this.loadUsers());
     }
   }

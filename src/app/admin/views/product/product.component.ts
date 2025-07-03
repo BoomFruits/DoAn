@@ -79,10 +79,10 @@ export class AdminProductComponent {
     if (confirm(`Delete "${product.title}"?`)) {
       this.productService.delete(product.id).subscribe({
         next: (res) => {
-          this.toastr.success("Deleted Product name", product.title);
+          this.toastr.success("Xoá sản phẩm ", product.title+" thành công");
           this.loadProducts();
         },
-        error: (err) => this.toastr.error("Error", err)
+        error: (err) => this.toastr.error("Lỗi", err)
       });
     }
   }
@@ -110,11 +110,11 @@ export class AdminProductComponent {
 
     request$.subscribe({
       next: (res) => {
-        this.toastr.success(this.selectedProduct ? "Product updated" : "Product created", res.title);
+        this.toastr.success(this.selectedProduct ? "Cập nhập " : "Tạo sản phẩm ", res.title+" thành công");
         this.resetForm();
         this.loadProducts();
       },
-      error: (err) => this.toastr.error("Error", err)
+      error: (err) => this.toastr.error("Lỗi", err)
     });
   }
 

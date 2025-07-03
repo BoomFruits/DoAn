@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import packageJson from 'D:/Code/DoAnFrontend/doanfrontend/package.json'
+import packageJson from 'D:/Code/DoAn/doanfrontend/package.json'
 import { NgTemplateOutlet } from '@angular/common';
 import { CalloutComponent } from '@coreui/angular';
 

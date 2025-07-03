@@ -1,17 +1,4 @@
-<!-- Google Web Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">  
-
-    <!-- Icon Font Stylesheet -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
-    <!-- Libraries Stylesheet -->
-    <link href="../../assets/lib/animate/animate.min.css" rel="stylesheet">
-    <link href="../../assets/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
-    <link href="../../assets/lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
-
-    <!-- Customized Bootstrap Stylesheet -->
+  <!-- Customized Bootstrap Stylesheet -->
     <link href="../../assets/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Template Stylesheet -->
@@ -19,9 +6,9 @@
 <div class="container mt-5">
   <h3 class="mb-4">Thanh Toán</h3>
 <form *ngIf="user" (ngSubmit)="submitPayment()" #paymentForm="ngForm">
-  <p>Booking Id: {{ booking?.bookingId }}</p>
+  <p>Mã đơn: {{ booking?.bookingId }}</p>
   <div class="mb-3">
-    <label for="username" class="form-label">Full Name</label>
+    <label for="username" class="form-label">Họ và tên</label>
     <input type="text" class="form-control" id="username"
            [(ngModel)]="user.username" name="username" required disabled=""/>
   </div>
@@ -33,41 +20,41 @@
   </div>
 
   <div class="mb-3">
-    <label for="gender" class="form-label">Gender</label>
+    <label for="gender" class="form-label">Giới tính</label>
     <input type="gender" class="form-control" id="gender"
            [(ngModel)]="user.gender" name="gender" required disabled/>
   </div>
 
   <div class="mb-3">
-    <label for="phone" class="form-label">Phone Number</label>
+    <label for="phone" class="form-label">Số điện thoại</label>
     <input type="text" class="form-control" id="phone"
            [(ngModel)]="user.phoneNumber" name="phone" required disabled=""/>
   </div>
 
   <div class="mb-3">
-    <label for="address" class="form-label">Address</label>
+    <label for="address" class="form-label">Địa chỉ</label>
     <input type="text" class="form-control" id="address"
            [(ngModel)]="user.address" name="address" required disabled=""/>
   </div>
 
   <div class="mb-3">
-    <label for="totalPrice" class="form-label">Total price (VNĐ)</label>
+    <label for="totalPrice" class="form-label">Tổng tiền phải thanh toán (VNĐ)</label>
     <input type="number" class="form-control" id="totalPrice"
            [(ngModel)]="totalPrice" name="totalPrice" required disabled />
   </div>
 
   <div class="mb-3">
-    <label for="method" class="form-label">Payment method</label>
+    <label for="method" class="form-label">Phương thức thanh toán</label>
     <select class="form-select" id="method"
             [(ngModel)]="paymentMethod" name="method" required>
-      <option value="Cash" selected>Cash</option>
+      <option value="Cash" selected>Tiền mặt</option>
       <option value="VNPay">VNPay</option>
       <option value="PayPal">PayPal</option>
     </select>
   </div>
 
   <button type="submit" class="btn btn-primary w-100">
-    Payment
+    Thanh toán
   </button>
 </form>
 </div>

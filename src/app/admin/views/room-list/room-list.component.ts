@@ -6,6 +6,7 @@ import { FormModule } from '@coreui/angular';
 
 import { RoomFormComponent } from "../room-form/room-form.component";
 import { AdminRoomService } from '../../../services/adminroom.service';
+import { environment } from '../../../../../environment';
 declare var bootstrap : any;
 @Component({
   selector: 'app-room-list',
@@ -16,6 +17,7 @@ declare var bootstrap : any;
 })
 export class RoomListComponent implements OnInit {
   private modalInstance: any;
+  imageUrl = environment.imageUrl;
   rooms: Room[] = [];
   editRoomId = 0;
   isEditing = false;

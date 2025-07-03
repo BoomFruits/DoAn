@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { Booking } from '../../../../model/booking.model';
 import { BookingService } from '../../../services/booking.service';
 import { FormsModule } from '@angular/forms';
@@ -13,10 +13,10 @@ import { BookingDetail } from '../../../../model/BookingDetail.model';
   templateUrl: './admin-booking.component.html',
   styleUrl: './admin-booking.component.scss',
 })
-export class AdminBookingComponent {
+export class AdminBookingComponent  implements OnInit{
   bookings: Booking[] = [];
   keyword: string = '';
-
+  message: string = '';
   constructor(
     private bookingService: BookingService,
     private toastr: ToastrService
@@ -32,13 +32,13 @@ export class AdminBookingComponent {
   getStatusName(s: number) {
     switch (s) {
       case 0:
-        return 'Pending';
+        return 'Chờ';
       case 1:
-        return 'Confirmed';
+        return 'Xác nhận thanh toán';
       case 2:
-        return 'Canceled';
+        return 'Huỷ';
       default:
-        return 'Pending';
+        return 'Hoàn thành';
     }
   }
   search(): Booking[] {
@@ -51,17 +51,42 @@ export class AdminBookingComponent {
     );
   }
   checkIn(bookingId: number, roomId: number, detail: BookingDetail) {
-    this.bookingService.checkIn(bookingId,roomId).subscribe((res) => {
-      this.toastr.success('Checked in!');
-      detail.isCheckedIn = true;
+    this.bookingService.checkIn(bookingId,roomId).subscribe({
+      next: (res) => {
+        this.message = res.message;
+        this.toastr.success(this.message);
+        detail.isCheckedIn = true;
+      },error: (err) => {
+          this.message = err.message;
+          this.toastr.error(this.message);
+      }
     });
   }
 
   checkOut(bookingId: number, roomId: number, detail: BookingDetail) {
-    this.bookingService.checkOut(bookingId,roomId).subscribe(() => {
-      this.toastr.success('Checked out!');
-      detail.isCheckedOut = true;
+    this.bookingService.checkOut(bookingId,roomId).subscribe({
+      next: (res) => {
+        this.message = res.message;
+        this.toastr.success(this.message);
+        detail.isCheckedOut = true;
+      },error: (err) => {
+          this.message = err.message;
+          this.toastr.error(this.message);
+      }
     });
+  }
+  deleteBooking(bookingId: number){
+    if(confirm("Bạn có chắc xoá đặt phòng này?"))
+    this.bookingService.deleteBooking(bookingId).subscribe({
+      next: (res) => {
+        this.message = res.message;
+        this.toastr.success(this.message);
+      },error: (err) => {
+          this.message = err.message;
+        this.toastr.error(this.message);
+      }
+    })
+    this.loadBookings();
   }
   formatDate(dateStr: string): string {
     return new Date(dateStr).toLocaleString('vi-VN');

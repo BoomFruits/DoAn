@@ -3,6 +3,7 @@ import { Component, Input, ViewEncapsulation } from '@angular/core';
 import { FormGroup, FormsModule } from '@angular/forms';
 import { Room } from '../../model/room.model';
 import { RoomService } from '../services/room.service';
+import { environment } from '../../../environment';
 
 @Component({
     selector: 'app-app-room-card',
@@ -13,6 +14,7 @@ import { RoomService } from '../services/room.service';
     styleUrl: './app-room-card.component.scss'
 })
 export class AppRoomCardComponent {
+  imageUrl = environment.imageUrl;
    rooms: Room[] = [];
    selectedRoom!: Room;
    selectedDateCheckin: Date = new Date();

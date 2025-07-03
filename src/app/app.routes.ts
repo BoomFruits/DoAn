@@ -1,5 +1,4 @@
 import { Routes } from '@angular/router';
-import { WeatherComponent } from './weather/weather.component';
 import { AdminGuard } from './auth/admin.guard';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
@@ -19,6 +18,8 @@ import { ProfileComponent } from './profile/profile.component';
 import { PasswordComponent } from './password/password.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { PaymentSuccessComponent } from './payment-success/payment-success.component';
+import { ContactComponent } from './contact/contact.component';
+import { PaymentFailedComponent } from './payment-failed/payment-failed.component';
 
 export const routes: Routes = [
     {
@@ -34,14 +35,14 @@ export const routes: Routes = [
       // { path: 'booking-detail/:roomid', component: BookingDetailComponent },
       {path: 'my-bookings',component:BookingHistoryComponent,canActivate: [AuthGuard]},
       { path: 'room-card', component: AppRoomCardComponent },
-      { path: 'WeatherForecast', component: WeatherComponent, canActivate: [AuthGuard] },
       { path: 'login', component: LoginComponent },
       {path: 'profile',component:ProfileComponent,canActivate: [AuthGuard]},
       {path:'password',component:PasswordComponent,canActivate:[AuthGuard]},
       {path: 'forgotpassword',component:ForgotPasswordComponent},
       { path: 'register', component: RegisterComponent },
       { path: 'payment-success', component: PaymentSuccessComponent },
-  // { path: 'paypal-cancel', component: PaypalCancelComponent }, // Tuỳ chọn nếu muốn xử lý hủy thanh toán
+      {path:'payment-failed',component:PaymentFailedComponent},
+      {path: 'contact',component: ContactComponent},
       {path:'payment/:bookingId',component:PaymentComponent,canActivate:[AuthGuard]}
     ]
   },

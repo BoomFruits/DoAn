@@ -38,25 +38,24 @@
                         </button>
                         <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                             <div class="navbar-nav mr-auto py-0">
-                                <a [routerLink]="['/home']" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" class="nav-item nav-link">Home</a>
+                                <a [routerLink]="['/home']" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" class="nav-item nav-link">Trang chủ</a>
 
-                                <a [routerLink]="['/about']" routerLinkActive="active" class="nav-item nav-link">About</a>
+                                <a [routerLink]="['/service']" routerLinkActive="active" class="nav-item nav-link">Dịch vụ</a>
+                                
+                                <a [routerLink]="['/room']" routerLinkActive="active" class="nav-item nav-link">Phòng</a>
 
-                                <a [routerLink]="['/service']" routerLinkActive="active" class="nav-item nav-link">Services</a>
-
-                                <a [routerLink]="['/room']" routerLinkActive="active" class="nav-item nav-link">Rooms</a>
-
-                                <div class="nav-item dropdown" routerLinkActive="active">
+                                <!-- <div class="nav-item dropdown" routerLinkActive="active">
                                 <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#">Pages</a>
                                 <div class="dropdown-menu rounded-0 m-0">
                                     <a [routerLink]="['/room']" routerLinkActive="active" class="dropdown-item">Booking</a>
                                     <a [routerLink]="['/team']" routerLinkActive="active" class="dropdown-item">Our Team</a>
                                     <a [routerLink]="['/testimonial']" routerLinkActive="active" class="dropdown-item">Testimonial</a>
                                 </div>
-                                </div>
+                                </div> -->
 
-                                <a [routerLink]="['/contact']" routerLinkActive="active" class="nav-item nav-link">Contact</a>
-                                <a *ngIf="!isLogged()" [routerLink]="['/login']" routerLinkActive="active" class="nav-item nav-link">Login</a>
+                                <a [routerLink]="['/contact']" routerLinkActive="active" class="nav-item nav-link">Liên hệ</a>
+                                <a [routerLink]="['/admin']" routerLinkActive="active" *ngIf="isAdmin()" class="nav-item nav-link">Trang quản trị</a>
+                                <a *ngIf="!isLogged()" [routerLink]="['/login']" routerLinkActive="active" class="nav-item nav-link">Đăng nhập</a>
                                 <div class="d-flex align-items-center">
                                     <ng-container *ngIf="isLogged()">
                                     <ng-container *ngTemplateOutlet="userDropdown"></ng-container>
@@ -64,21 +63,21 @@
                                 <ng-template #userDropdown>
                                     <c-dropdown [popperOptions]="{ placement: 'bottom-start' }" variant="nav-item">
                                         <button cDropdownToggle class="py-0 pe-0" aria-label="Open user menu">
-                                            Welcome, {{ getUserName() }}
+                                            Xin chào, {{ getUserName() }}
                                         </button>
                                         <ul cDropdownMenu class="pt-0 w-56 bg-white shadow-md rounded-md text-sm text-gray-800 z-50">
                                             <li>
-                                                <h6 class="px-4 py-2 text-xs text-gray-500 uppercase tracking-wide">Welcome</h6>
+                                                <h6 class="px-4 py-2 text-xs text-gray-500 uppercase tracking-wide">Xin chào</h6>
                                             </li>
                                             <li>
-                                                <a cDropdownItem [routerLink]="['/profile']" class="block px-4 py-2 hover:bg-gray-100">👤 Profile</a>
+                                                <a cDropdownItem [routerLink]="['/profile']" class="block px-4 py-2 hover:bg-gray-100">👤 Hồ sơ người dùng</a>
                                             </li>
                                             <li>
-                                                <a cDropdownItem [routerLink]="['/my-bookings']" class="block px-4 py-2 hover:bg-gray-100">History</a>
+                                                <a cDropdownItem [routerLink]="['/my-bookings']" class="block px-4 py-2 hover:bg-gray-100">Lịch sử đặt phòng</a>
                                             </li>
                                             <li><hr class="my-1 border-t border-gray-200" /></li>
                                             <li>
-                                                <a cDropdownItem (click)="onLogout()" class="block px-4 py-2 text-red-600 hover:bg-red-50">🚪 Logout</a>
+                                                <a cDropdownItem (click)="onLogout()" class="block px-4 py-2 text-red-600 hover:bg-red-50">🚪 Đăng xuất</a>
                                             </li>
                                             </ul>
                                     </c-dropdown>
