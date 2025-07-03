@@ -14,5 +14,5 @@ export interface Booking {
   bookingDate: string;
   checkinDate: string;
   checkoutDate: string;
-  rooms: BookingDetail[];
+  details: BookingDetail[];
 }

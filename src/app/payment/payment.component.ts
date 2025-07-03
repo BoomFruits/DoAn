@@ -9,6 +9,8 @@ import { User } from '../../model/user.model';
 import { BookingService } from '../services/booking.service';
 import { ToastrService } from 'ngx-toastr';
 import { PaymentService } from '../services/payment.service';
+import { VnPayCreatePaymentRequest } from '../../model/VnPayCreatePaymentRequest.model';
+import { PaypalCreatePaymentRequest } from '../../model/PaypalCreatePaymentRequest.model';
 @Component({
   selector: 'app-payment',
   encapsulation: ViewEncapsulation.None,
@@ -71,24 +73,24 @@ export class PaymentComponent implements OnInit {
   }
 
   payWithVnPay() {
-    const payload = {
+    const payload: VnPayCreatePaymentRequest = {
       totalPrice: this.totalPrice,
       BookingId: this.booking.bookingId,
-      CreatedDate: new Date(),
+      CreatedDate: new Date().toISOString(),
     };
     this.paymentService.createVNPayPayment(payload)
       .subscribe({
-        next: (paymentUrl) => {
-          window.location.href = paymentUrl;
+        next: (res) => {
+              window.location.href = res.paymentUrl;
         },
         error: (err) => {
           console.error(err);
-                  this.toastr.error('Thanh toán VNPay lỗi');
+          this.toastr.error('Thanh toán VNPay lỗi');
         },
       });
   }
   payWithPaypal() {
-    const payload = {
+    const payload: PaypalCreatePaymentRequest = {
       baseUrl: 'https://localhost:4200',
       bookingId: this.booking.bookingId,
       tax: 0,

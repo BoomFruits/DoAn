@@ -1,3 +1,5 @@
+import { ServiceDetailItem } from "./ServiceDetailItem.model";
+
 export interface BookingDetail {
  roomId: number;
   room_No: string;
@@ -9,4 +11,5 @@ export interface BookingDetail {
   price: number;
   isCheckedIn: boolean;
   isCheckedOut: boolean;
+  services?: ServiceDetailItem[];
 }

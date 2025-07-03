@@ -45,7 +45,7 @@ export class RoomComponent {
   selectedDateCheckout: Date = new Date();
   keyword: string = '';
   filterType: string = ''; // loại phòng
-  filterCapacity: number | null = null; // sức chứa
+  filterCapacity: number | null = null; 
   filterMinPrice: number | null = null;
   filterMaxPrice: number | null = null;
   constructor(private roomService: RoomService, private router: Router) {}
@@ -84,13 +84,6 @@ export class RoomComponent {
         matchesMaxPrice
       );
     });
-  }
-  resetFilters() {
-    this.keyword = '';
-    this.filterType = '';
-    this.filterCapacity = null;
-    this.filterMinPrice = null;
-    this.filterMaxPrice = null;
   }
   loadRooms() {
     // this.roomService.getAllRooms().subscribe(data => this.rooms = data); //load all room even active room

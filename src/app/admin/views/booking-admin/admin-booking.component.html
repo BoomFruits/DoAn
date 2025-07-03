@@ -1,4 +1,4 @@
-<div class="container py-4">
+<div class="container py-lg-5">
   <h4>Quản lý đặt phòng</h4>
 
   <div class="mb-3">
@@ -32,8 +32,8 @@
         <td>{{ b.userName }}</td>
         <td>{{ b.userEmail }}</td>
         <td>{{ formatDate(b.checkinDate) }}</td>
-        <td>
-          <div *ngFor="let room of b.rooms" class="mb-2 p-2 border rounded">
+        <td class="p-0" style="min-width: 300px; max-width: 600px; width: 40vw;">
+          <div *ngFor="let room of b.details" class="mb-2 p-2 border rounded">
             <td>
               <div class="d-flex justify-content-between align-items-center">
                 <div>
@@ -63,6 +63,27 @@
                   >
                 </div>
               </div>
+
+      <div *ngIf="room.services?.length" class="mt-2">
+        <strong>Dịch vụ thêm:</strong>
+        <ul class="list-group list-group-flush mt-1">
+          <li 
+            *ngFor="let svc of room.services" 
+            class="list-group-item p-2"
+          >
+            <div class="d-flex justify-content-between">
+              <div>
+                {{ svc.title }} 
+                (x{{ svc.amount }})  
+                &#64; {{ svc.price | number }}₫
+              </div>
+              <div class="fw-bold">
+                {{ (svc.amount * svc.price) | number }}₫
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
             </td>
           </div>
         </td>
