@@ -72,7 +72,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let booking of filters()" class="hover:bg-gray-50">
+        <tr *ngFor="let booking of filters() | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage }" class="hover:bg-gray-50">
           <td class="px-4 py-2 border">{{ booking.id }}</td>
           <td class="px-4 py-2 border">{{ booking.bookingDate | date: 'short' }}</td>
           <td class="px-4 py-2 border">{{ booking.paymentMethod }}</td>
@@ -134,6 +134,14 @@
         </tr>
       </tbody>
     </table>
+               <pagination-controls
+      (pageChange)="currentPage = $event"
+        [autoHide]="true"
+        class="mt-4 d-flex justify-content-center"
+        previousLabel="← Trước"
+        nextLabel="Tiếp →"
+        [responsive]="true"
+      ></pagination-controls>
   </div>
 </div>
 

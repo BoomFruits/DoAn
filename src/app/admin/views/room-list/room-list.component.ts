@@ -7,10 +7,11 @@ import { FormModule } from '@coreui/angular';
 import { RoomFormComponent } from "../room-form/room-form.component";
 import { AdminRoomService } from '../../../services/adminroom.service';
 import { environment } from '../../../../../environment';
+import { NgxPaginationModule } from 'ngx-pagination';
 declare var bootstrap : any;
 @Component({
   selector: 'app-room-list',
-  imports: [CommonModule, FormModule, ReactiveFormsModule, RoomFormComponent],
+  imports: [CommonModule, FormModule, ReactiveFormsModule, RoomFormComponent,NgxPaginationModule],
   standalone:true,
   templateUrl: './room-list.component.html',
   styleUrl: './room-list.component.scss'
@@ -22,6 +23,8 @@ export class RoomListComponent implements OnInit {
   editRoomId = 0;
   isEditing = false;
   editingRoom: any = null;
+  itemsPerPage = 6;
+  currentPage = 0;
  constructor(private fb: FormBuilder, private roomService: AdminRoomService) {
  
   }

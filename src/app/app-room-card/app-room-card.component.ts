@@ -31,6 +31,7 @@ export class AppRoomCardComponent {
 
   }
   loadRooms(){
-    this.roomService.getActiveRoom().subscribe(data => this.rooms = data);
+    // this.roomService.getActiveRoom().subscribe(data => this.rooms = data);
+    this.roomService.getTopRoom().subscribe(data => this.rooms = data);
   }
 }

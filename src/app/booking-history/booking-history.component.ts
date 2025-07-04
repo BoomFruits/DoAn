@@ -8,13 +8,14 @@ import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Room } from '../../model/room.model';
 import { Booking } from '../../model/booking.model';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 
 @Component({
   selector: 'app-booking-history',
   standalone:true,
   encapsulation:ViewEncapsulation.None,
-  imports: [CommonModule,FormsModule],
+  imports: [CommonModule,FormsModule,NgxPaginationModule],
   templateUrl: './booking-history.component.html',
   styleUrl: './booking-history.component.scss'
 })
@@ -57,6 +58,8 @@ export class BookingHistoryComponent implements OnInit{
   ];
   keyword: string = '';
     selectedStatuses: number[] = [];
+    itemsPerPage = 6;
+    currentPage = 0;
   constructor(private bookingService: BookingService,private router: Router,private toastr: ToastrService){}
   ngOnInit(): void {
     this.loadBookings()

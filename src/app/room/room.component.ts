@@ -1,28 +1,20 @@
 import { CommonModule } from '@angular/common';
 import {
   Component,
-  ElementRef,
-  OnDestroy,
-  ViewChild,
   ViewEncapsulation,
 } from '@angular/core';
 import { FormControlDirective, FormsModule } from '@angular/forms';
 import { Room } from '../../model/room.model';
 import { BookingDetail } from '../../model/BookingDetail.model';
-import { loadScript } from '../../loadscript';
 import {
-  FlatpickrDirective,
-  FlatpickrModule,
   provideFlatpickrDefaults,
 } from 'angularx-flatpickr';
 import { Router, RouterLink } from '@angular/router';
 import { RoomService } from '../services/room.service';
-import { BookingComponent } from '../booking/booking.component';
 import { RoomDetailComponent } from '../room-detail/room-detail.component';
-import { HeaderComponent } from '../header/header.component';
-import { FooterComponent } from '../footer/footer.component';
 import { environment } from '../../../environment';
-import { ButtonCloseDirective, ButtonDirective, DropdownCloseDirective, DropdownComponent, DropdownMenuDirective, DropdownModule, DropdownToggleDirective, FormDirective } from '@coreui/angular';
+import {  ButtonDirective, DropdownComponent, DropdownMenuDirective, DropdownModule, DropdownToggleDirective, FormDirective } from '@coreui/angular';
+import { NgxPaginationModule } from 'ngx-pagination';
 declare var bootstrap: any;
 
 @Component({
@@ -30,7 +22,7 @@ declare var bootstrap: any;
   selector: 'app-room',
   standalone: true,
   imports: [CommonModule, FormsModule, RoomDetailComponent,DropdownComponent,DropdownToggleDirective,DropdownMenuDirective,
-    DropdownModule,FormDirective,ButtonDirective
+    DropdownModule,FormDirective,ButtonDirective,NgxPaginationModule
   ],
   templateUrl: './room.component.html',
   styleUrls: ['./room.component.scss'],
@@ -48,6 +40,9 @@ export class RoomComponent {
   filterCapacity: number | null = null; 
   filterMinPrice: number | null = null;
   filterMaxPrice: number | null = null;
+  //phân trang
+  currentPage = 1;
+  itemsPerPage = 6;
   constructor(private roomService: RoomService, private router: Router) {}
   updateTimeCheckIn(date: Date) {
     this.selectedDateCheckin = date;
@@ -100,4 +95,6 @@ export class RoomComponent {
   openBooking(room: Room) {
     this.router.navigate(['/booking',room.id]);
   }
+
+  
 }

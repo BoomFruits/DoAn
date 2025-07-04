@@ -8,7 +8,40 @@
       placeholder="Tìm kiếm..."
     />
   </div>
+      <!-- Toolbar lọc -->
+  <div class="d-flex flex-wrap align-items-center gap-3 mb-4">
+    <!-- Lọc theo phương thức thanh toán -->
+    <div>
+      <label class="form-label me-2"><strong>Phương thức:</strong></label>
+      <select
+        class="form-select d-inline-block w-auto"
+        [(ngModel)]="selectedPaymentMethod"
+        (ngModelChange)="search()"
+        name="paymentMethod"
+      >
+        <option value="">Tất cả</option>
+        <option *ngFor="let pm of paymentMethods" [value]="pm">{{ pm }}</option>
+      </select>
+    </div>
 
+    <!-- Lọc theo trạng thái đơn -->
+    <div>
+      <label class="form-label me-2"><strong>Trạng thái đơn:</strong></label>
+      <ng-container *ngFor="let s of statuses">
+        <div class="form-check form-check-inline">
+          <input
+            class="form-check-input"
+            type="checkbox"
+            [id]="'status' + s.value"
+            [value]="s.value"
+            (change)="toggleStatus(s.value)"
+            [checked]="selectedStatuses.includes(s.value)"
+          />
+          <label class="form-check-label" [for]="'status' + s.value">{{ s.label }}</label>
+        </div>
+      </ng-container>
+    </div>
+  </div>
   <table class="table table-bordered table-striped">
     <thead class="table-light">
       <tr>
@@ -27,7 +60,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let b of search(); let i = index">
+      <tr *ngFor="let b of search() | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage }; let i = index">
         <td>{{ i + 1 }}</td>
         <td>{{ b.userName }}</td>
         <td>{{ b.userEmail }}</td>
@@ -112,4 +145,12 @@
       </tr>
     </tbody>
   </table>
+                 <pagination-controls
+      (pageChange)="currentPage = $event"
+        [autoHide]="true"
+        class="mt-4 d-flex justify-content-center"
+        previousLabel="← Trước"
+        nextLabel="Tiếp →"
+        [responsive]="true"
+      ></pagination-controls>
 </div>

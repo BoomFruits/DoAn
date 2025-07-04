@@ -49,88 +49,92 @@
             style="margin-bottom: 50px"
           >
             <c-dropdown [autoClose]="'outside'">
-              <button cDropdownToggle cButton >Bộ lọc</button>
+              <button cDropdownToggle cButton>Bộ lọc</button>
               <div
                 class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4 items-center"
                 cDropdownMenu
               >
                 <form cForm class="px-4 py-0">
-                    <!-- Tìm kiếm từ khóa -->
-                <div>
-                  <label class="block text-sm font-medium text-gray-600 mb-1"
-                    >Từ khoá</label
-                  >
-                  <input
-                    type="text"
-                    [(ngModel)]="keyword"
-                    placeholder="Loại phòng, tên phòng"
-                    class="form-control"
-                    name="keyword"
-                  />
-                </div>
+                  <!-- Tìm kiếm từ khóa -->
+                  <div>
+                    <label class="block text-sm font-medium text-gray-600 mb-1"
+                      >Từ khoá</label
+                    >
+                    <input
+                      type="text"
+                      [(ngModel)]="keyword"
+                      placeholder="Loại phòng, tên phòng"
+                      class="form-control"
+                      name="keyword"
+                    />
+                  </div>
 
-                <!-- Loại phòng -->
-                <div>
-                  <label class="block text-sm font-medium text-gray-600 mb-1"
-                    >Loại phòng</label
-                  >
-                  <select [(ngModel)]="filterType" class="form-select" name="type">
-                    <option value="">Tất cả</option>
-                    <option value="Single">Đơn</option>
-                    <option value="Double">Đôi</option>
-                    <option value="Suite">Cao cấp</option>
-                    <!-- tuỳ loại bạn có -->
-                  </select>
-                </div>
+                  <!-- Loại phòng -->
+                  <div>
+                    <label class="block text-sm font-medium text-gray-600 mb-1"
+                      >Loại phòng</label
+                    >
+                    <select
+                      [(ngModel)]="filterType"
+                      class="form-select"
+                      name="type"
+                    >
+                      <option value="">Tất cả</option>
+                      <option value="Single">Đơn</option>
+                      <option value="Double">Đôi</option>
+                      <option value="Suite">Cao cấp</option>
+                      <!-- tuỳ loại bạn có -->
+                    </select>
+                  </div>
 
-                <!-- Sức chứa -->
-                <div>
-                  <label class="block text-sm font-medium text-gray-600 mb-1"
-                    >Sức chứa tối thiểu</label
-                  >
-                  <input
-                    type="number"
-                    name="number"
-                    [(ngModel)]="filterCapacity"
-                    placeholder="≥ number customer"
-                    class="form-control"
-                  />
-                </div>
+                  <!-- Sức chứa -->
+                  <div>
+                    <label class="block text-sm font-medium text-gray-600 mb-1"
+                      >Sức chứa tối thiểu</label
+                    >
+                    <input
+                      type="number"
+                      name="number"
+                      [(ngModel)]="filterCapacity"
+                      placeholder="≥ number customer"
+                      class="form-control"
+                    />
+                  </div>
 
-                <!-- Giá từ -->
-                <div>
-                  <label class="block text-sm font-medium text-gray-600 mb-1"
-                    >Giá từ (VNĐ)</label
-                  >
-                  <input
-                  name="minprice"
-                    type="number"
-                    [(ngModel)]="filterMinPrice"
-                    placeholder="Minimum price"
-                    class="form-control"
-                  />
-                </div>
+                  <!-- Giá từ -->
+                  <div>
+                    <label class="block text-sm font-medium text-gray-600 mb-1"
+                      >Giá từ (VNĐ)</label
+                    >
+                    <input
+                      name="minprice"
+                      type="number"
+                      [(ngModel)]="filterMinPrice"
+                      placeholder="Minimum price"
+                      class="form-control"
+                    />
+                  </div>
 
-                <!-- Giá đến -->
-                <div>
-                  <label class="block text-sm font-medium text-gray-600 mb-1"
-                    >Đến (VNĐ)</label
-                  >
-                  <input
-                    type="number"
-                    name="maxprice"
-                    [(ngModel)]="filterMaxPrice"
-                    placeholder="Maximum price"
-                    class="form-control"
-                  />
-                </div>
+                  <!-- Giá đến -->
+                  <div>
+                    <label class="block text-sm font-medium text-gray-600 mb-1"
+                      >Đến (VNĐ)</label
+                    >
+                    <input
+                      type="number"
+                      name="maxprice"
+                      [(ngModel)]="filterMaxPrice"
+                      placeholder="Maximum price"
+                      class="form-control"
+                    />
+                  </div>
                 </form>
               </div>
             </c-dropdown>
           </div>
           <div class="row g-4" *ngIf="rooms.length > 0">
             <div
-              *ngFor="let room of search()"
+              *ngFor="let room of search() | paginate: {itemsPerPage: itemsPerPage,currentPage: currentPage}"
               class="col-lg-4 col-md-6 wow fadeInUp"
               data-wow-delay="0.1s"
             >
@@ -194,12 +198,20 @@
               </div>
             </div>
           </div>
-          <div *ngIf="search().length === 0">
+          <div *ngIf="rooms.length === 0">
             <h1 class="text-center mt-10">Không có dữ liệu phòng</h1>
           </div>
         </div>
       </div>
       <!-- Room End -->
+       <pagination-controls
+      (pageChange)="currentPage = $event"
+        [autoHide]="true"
+        class="mt-4 d-flex justify-content-center"
+        previousLabel="← Trước"
+        nextLabel="Tiếp →"
+        [responsive]="true"
+      ></pagination-controls>
       <!--Bootstrap top-up modal-->
       <div
         #topUpModal

@@ -12,13 +12,16 @@ export class RoomService {
   getImageBaseUrl(){
     return `${environment.apiUrl}/uploads/rooms`;
   }
-  getAllRooms(): Observable<any[]> {
-    return this.http.get<any[]>(`${environment.apiUrl}`+"/room/get_all_rooms");
+  getAllRooms(): Observable<Room[]> {
+    return this.http.get<Room[]>(`${environment.apiUrl}`+"/room/get_all_rooms");
   }
-  getRoomById(id: number): Observable<any>{
-    return this.http.get(`${environment.apiUrl}/room/${id}`);
+  getRoomById(id: number): Observable<Room>{
+    return this.http.get<Room>(`${environment.apiUrl}/room/${id}`);
   }
-  getActiveRoom(): Observable<any[]>{
-    return this.http.get<any[]>(`${environment.apiUrl}/room/get_active_rooms`);
+  getActiveRoom(): Observable<Room[]>{
+    return this.http.get<Room[]>(`${environment.apiUrl}/room/get_active_rooms`);
+  }
+  getTopRoom(): Observable<Room[]>{
+    return this.http.get<Room[]>(`${environment.apiUrl}/room/get_top_rooms`);
   }
 }

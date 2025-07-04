@@ -8,7 +8,7 @@
   </div>
 
   <div class="row g-4">
-  <div class="col-lg-4 col-md-6" *ngFor="let room of rooms">
+  <div class="col-lg-4 col-md-6" *ngFor="let room of rooms | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage }">
     <div
       class="room-item shadow rounded overflow-hidden border"
       [ngClass]="room.isAvailable ? 'border-success' : 'border-secondary'"
@@ -59,6 +59,14 @@
       </div>
     </div>
   </div>
+                 <pagination-controls
+      (pageChange)="currentPage = $event"
+        [autoHide]="true"
+        class="mt-4 d-flex justify-content-center"
+        previousLabel="← Trước"
+        nextLabel="Tiếp →"
+        [responsive]="true"
+      ></pagination-controls>
 </div>
 </div>
 <!-- </form> -->
