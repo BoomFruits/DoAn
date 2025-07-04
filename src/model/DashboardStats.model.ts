@@ -6,6 +6,8 @@ export interface DashboardStats {
   activeRooms: number;
   todayCheckins: number;
   todayCheckouts: number;
+  monthCheckins: number;
+  monthCheckouts: number;
 canceledCount:number;
 successCount: number;
   topRooms: {

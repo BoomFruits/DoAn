@@ -72,7 +72,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let booking of filters() | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage }" class="hover:bg-gray-50">
+        <tr *ngFor="let booking of filters() | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage }; let i = index" class="hover:bg-gray-50">
           <td class="px-4 py-2 border">{{ booking.id }}</td>
           <td class="px-4 py-2 border">{{ booking.bookingDate | date: 'short' }}</td>
           <td class="px-4 py-2 border">{{ booking.paymentMethod }}</td>
@@ -81,19 +81,12 @@
         </span></td>
           <td class="px-4 py-2 border">{{ booking.paymentDate | date: 'short' }}</td>
           <td class="px-4 py-2 border">
-            <span [ngClass]="{
-              'text-yellow-600 font-medium': booking.status === 0,
-              'text-green-600 font-medium': booking.status === 1,
-              'text-blue-600 font-medium': booking.status === 3,
-              'text-red-600 font-medium': booking.status === 2
-            }">
-              {{
-                booking.status === 0 ? 'Chờ thanh toán' :
-                booking.status === 1 ? 'Đã thanh toán' :
-                booking.status === 3 ? 'Hoàn tất':
-                'Đã huỷ'
-              }}
-            </span>
+             <span [ngClass]="{
+                'text-yellow-600 font-medium': booking.status === 0,
+                'text-red-600 font-medium': booking.status === 2,
+                'text-green-600 font-medium': booking.status === 1
+              }">
+                {{ getBookingStatusLabel(booking) }} </span>
           </td>
           <td class="px-4 py-2 border">{{ booking.note }}</td>
          <td class="px-4 py-2 border text-lg-start">

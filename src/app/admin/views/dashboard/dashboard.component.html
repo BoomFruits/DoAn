@@ -49,16 +49,30 @@
   </c-card>
 
   <c-card>
-    <c-card-body>
-      <h6 class="text-sm text-muted">Số check-in hôm nay</h6>
-      <h3 class="text-lg font-semibold">{{ todayCheckins }}</h3>
-    </c-card-body>
+     <c-card-body>
+      <tbody>
+        <tr>
+          <td class="text-muted"><h6>Số check-in hôm nay</h6></td>
+          <td class="text-end font-medium">{{ todayCheckins }}</td>
+        </tr>
+        <tr>
+          <td class="text-muted"><h6>Số check-in trong tháng</h6></td>
+          <td class="text-end font-medium">{{ monthCheckins }}</td>
+        </tr>
+      </tbody>
+     </c-card-body>
   </c-card>
 
   <c-card>
     <c-card-body>
-      <h6 class="text-sm text-muted">Số check-out hôm nay</h6>
-      <h3 class="text-lg font-semibold">{{ todayCheckouts }}</h3>
+       <tr>
+          <td class="text-muted"><h6>Số check-out hôm nay</h6></td>
+          <td class="text-end font-medium">{{ todayCheckouts }}</td>
+        </tr>
+        <tr>
+          <td class="text-muted"><h6>Số check-out trong tháng</h6></td>
+          <td class="text-end font-medium">{{ monthCheckouts }}</td>
+        </tr>
     </c-card-body>
   </c-card>
 </div>

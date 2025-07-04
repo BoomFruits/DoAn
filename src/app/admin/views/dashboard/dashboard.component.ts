@@ -63,7 +63,9 @@ totalBookings = 0;
 userCount = 0;
 activeRooms = 0;
 todayCheckins = 0;
+monthCheckins = 0;
 todayCheckouts = 0;
+monthCheckouts = 0;
 topServicesChartData!: ChartData<'bar'>;
 topRoomsChartData!: ChartData<'bar'>;
 monthlyRevenueChartData!: ChartData<'line'>;
@@ -110,6 +112,8 @@ options = {
       this.todayCheckins = res.todayCheckins;
       this.todayCheckouts = res.todayCheckouts;
       this.userCount = res.userCount;
+      this.monthCheckins = res.monthCheckins;
+      this.monthCheckouts = res.monthCheckouts;
       // Bar chart tổng quan
       this.chartBarData = {
         labels: ['Tổng đặt phòng', 'Phòng hoạt động', 'Checkin hôm nay', 'Checkout hôm nay'],

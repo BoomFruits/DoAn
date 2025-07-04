@@ -11,6 +11,7 @@ import { ToastrService } from 'ngx-toastr';
 import { PaymentService } from '../services/payment.service';
 import { VnPayCreatePaymentRequest } from '../../model/VnPayCreatePaymentRequest.model';
 import { PaypalCreatePaymentRequest } from '../../model/PaypalCreatePaymentRequest.model';
+import { Booking } from '../../model/booking.model';
 @Component({
   selector: 'app-payment',
   encapsulation: ViewEncapsulation.None,
@@ -23,14 +24,12 @@ export class PaymentComponent implements OnInit {
   user!: User;
   paymentMethod: string = 'Cash';
   totalPrice!: number;
-  booking!: any;
+  booking!: Booking;
   constructor(
-    private router: Router,
     private bookingService: BookingService,
     private userService: UserService,
     private authService: AuthService,
     private paymentService: PaymentService,
-    private http: HttpClient,
     private toastr: ToastrService,
     private route: ActivatedRoute
   ) {}
@@ -47,13 +46,12 @@ export class PaymentComponent implements OnInit {
         this.bookingService.getBookingDetail(bookingId).subscribe((data) => {
           console.log('booking data api: ', data);
           this.booking = data;
-          this.totalPrice = data.totalPrice;
         });
       }
     });
   }
   submitPayment() {
-    if (!this.booking?.bookingId) {
+    if (!this.booking?.id) {
       this.toastr.error('Mã đơn không tìm thấy');
       return;
     }
@@ -75,7 +73,7 @@ export class PaymentComponent implements OnInit {
   payWithVnPay() {
     const payload: VnPayCreatePaymentRequest = {
       totalPrice: this.totalPrice,
-      BookingId: this.booking.bookingId,
+      BookingId: this.booking.id,
       CreatedDate: new Date().toISOString(),
     };
     this.paymentService.createVNPayPayment(payload)
@@ -92,7 +90,7 @@ export class PaymentComponent implements OnInit {
   payWithPaypal() {
     const payload: PaypalCreatePaymentRequest = {
       baseUrl: 'https://localhost:4200',
-      bookingId: this.booking.bookingId,
+      bookingId: this.booking.id,
       tax: 0,
       shipping: 0,
       items: [

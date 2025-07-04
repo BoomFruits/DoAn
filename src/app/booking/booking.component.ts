@@ -17,6 +17,11 @@ import { ToastrService } from 'ngx-toastr';
 import { ProductService } from '../services/product.service';
 import { Product } from '../../model/product.model';
 import { Booking } from '../../model/booking.model';
+import { BookingDetail } from '../../model/BookingDetail.model';
+import { ServiceDetailItem } from '../../model/ServiceDetailItem.model';
+import { BookingRequest } from '../../model/BookingRequest.model';
+import { BookingDetailRequest } from '../../model/BookingDetailRequest.model';
+import { SelectedService } from '../../model/SelectedService.model';
 
 declare var bootstrap: any;
 @Component({
@@ -43,7 +48,7 @@ export class BookingComponent implements OnInit, DoCheck {
     new Date().setDate(new Date().getDate() + 1)
   );
   services: Product[] = []
-  bookingData = {
+  bookingData: BookingRequest = {
     customerId: this.authService.GetUserId(),
     staffId: null,
     note: '',
@@ -52,16 +57,19 @@ export class BookingComponent implements OnInit, DoCheck {
       {
         roomId: this.defaultRoom?.id ?? null,
         room_No: '',
+          room_Name: '',
+          bookingId: 0,
+          isCheckedIn: false,
+          isCheckedOut: false,
         checkinDate: this.selectedDateCheckin.toISOString(),
         checkoutDate: this.selectedDateCheckout.toISOString(),
         roomNote: '',
         price: 0,
         services: [] as {
-    roomId: number;
-    serviceId: number;
-    quantity: number;
-    price: number;
-  }[],
+          serviceId: number;
+          amount: number;
+          price: number;
+        }[],
       },
     ],
   };
@@ -101,14 +109,17 @@ categoryToggle: { [key: string]: boolean } = {}; // toggle trạng thái từng 
           {
             roomId: room.id,
             room_No: room.room_No,
+            room_Name: '',
+            bookingId: 0,
+            isCheckedIn: false,
+            isCheckedOut: false,
             checkinDate: new Date(this.selectedDateCheckin).toISOString(),
             checkoutDate: new Date(this.selectedDateCheckout).toISOString(),
             roomNote: '',
             price: room.price,
             services: [] as {
-              roomId: number;
               serviceId: number;
-              quantity: number;
+              amount: number;
               price: number;
             }[],
           },
@@ -143,7 +154,7 @@ categoryToggle: { [key: string]: boolean } = {}; // toggle trạng thái từng 
       total += detail.price;
       if (detail.services) {
         for (const s of detail.services) {
-          total += (s.quantity || 1) * s.price;
+          total += (s.amount || 1) * s.price;
         }
       }
     }
@@ -156,12 +167,12 @@ categoryToggle: { [key: string]: boolean } = {}; // toggle trạng thái từng 
   }
   loadService(){
     this.productService.getAll().subscribe((p) => {
-      this.services = p.filter(p => p.isAvailable);
+      this.services = p.filter(p => p.isAvailable && p.stockQuantity != 0);
        this.groupServicesByCategory();
     })
   }
-  isServiceSelected(detail: any, serviceId: number): boolean {
-    return detail.services.some((s: any) => s.serviceId === serviceId);
+  isServiceSelected(detail: BookingDetailRequest, serviceId: number): boolean {
+    return detail.services.some((s: SelectedService) => s.serviceId === serviceId);
   }
   getCategoryNames(): string[] {
     return Object.keys(this.groupedServices);
@@ -170,17 +181,16 @@ categoryToggle: { [key: string]: boolean } = {}; // toggle trạng thái từng 
   toggleCategory(category: string) {
     this.categoryToggle[category] = !this.categoryToggle[category];
   }
-  toggleService(detail: any, service: any) {
+  toggleService(detail: BookingDetailRequest, service: Product) {
     const idx = detail.services.findIndex(
-      (s: any) => s.serviceId === service.id
+      (s: SelectedService) => s.serviceId === service.id
     );
     if (idx >= 0) {
       detail.services.splice(idx, 1);
     } else {
       detail.services.push({
-        roomId: detail.roomId,
         serviceId: service.id,
-        quantity: 1,
+        amount: 1,
         price: service.price,
       });
     }
@@ -196,15 +206,15 @@ categoryToggle: { [key: string]: boolean } = {}; // toggle trạng thái từng 
       this.groupedServices[s.categoryName].push(s);
     }
   }
-  getServiceQty(detail: any, serviceId: number): number {
-    const s = detail.services.find((s: any) => s.serviceId === serviceId);
-    return s ? s.quantity : 1;
+  getServiceQty(detail: BookingDetailRequest, serviceId: number): number {
+    const s = detail.services.find((s: SelectedService) => s.serviceId === serviceId);
+    return s ? s.amount : 1;
   }
 
-  updateServiceQty(detail: any, serviceId: number, qty: number) {
-    const s = detail.services.find((s: any) => s.serviceId === serviceId);
+  updateServiceQty(detail: BookingDetailRequest, serviceId: number, qty: number) {
+    const s = detail.services.find((s: SelectedService) => s.serviceId === serviceId);
     if (s){
-      s.quantity = +qty;
+      s.amount = +qty;
       detail.services = [...detail.services]; 
     }
   }
@@ -212,6 +222,10 @@ categoryToggle: { [key: string]: boolean } = {}; // toggle trạng thái từng 
     this.bookingData.details.push({
       roomId: null,
       room_No: '',
+       room_Name: '',
+       bookingId: 0,
+    isCheckedIn: false,
+    isCheckedOut: false,
       checkinDate: new Date(this.selectedDateCheckin).toISOString(),
       checkoutDate: new Date(this.selectedDateCheckout).toISOString(),
       roomNote: '',

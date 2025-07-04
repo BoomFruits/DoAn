@@ -89,4 +89,16 @@ export class BookingHistoryComponent implements OnInit{
     }
     this.filters();
   }
+  getBookingStatusLabel(booking: Booking): string {
+    if (booking.status === 0) return 'Chờ thanh toán';
+    if (booking.status === 2) return 'Đã huỷ';
+    if(booking.status == 3) return 'Hoàn tất'
+    if (booking.status === 1 && booking.details) {
+      const allNotCheckedIn = booking.details.every((d: BookingDetail) => !d.isCheckedIn);  
+      if (allNotCheckedIn) return 'Chưa check-in';
+      return 'Đã check-in';
+    }
+
+    return 'Không xác định';
+  }
 }

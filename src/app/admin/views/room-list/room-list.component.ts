@@ -22,7 +22,7 @@ export class RoomListComponent implements OnInit {
   rooms: Room[] = [];
   editRoomId = 0;
   isEditing = false;
-  editingRoom: any = null;
+  editingRoom: Room | null = null;
   itemsPerPage = 6;
   currentPage = 0;
  constructor(private fb: FormBuilder, private roomService: AdminRoomService) {

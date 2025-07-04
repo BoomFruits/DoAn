@@ -5,8 +5,8 @@
     <link href="../../assets/css/style.css" rel="stylesheet">
 <div class="container mt-5">
   <h3 class="mb-4">Thanh Toán</h3>
-<form *ngIf="user" (ngSubmit)="submitPayment()" #paymentForm="ngForm">
-  <p>Mã đơn: {{ booking?.bookingId }}</p>
+<form *ngIf="booking" (ngSubmit)="submitPayment()" #paymentForm="ngForm">
+  <p>Mã đơn: {{ booking.id }}</p>
   <div class="mb-3">
     <label for="username" class="form-label">Họ và tên</label>
     <input type="text" class="form-control" id="username"
@@ -40,13 +40,13 @@
   <div class="mb-3">
     <label for="totalPrice" class="form-label">Tổng tiền phải thanh toán (VNĐ)</label>
     <input type="number" class="form-control" id="totalPrice"
-           [(ngModel)]="totalPrice" name="totalPrice" required disabled />
+           [(ngModel)]="booking.totalPrice" name="totalPrice" required disabled />
   </div>
 
   <div class="mb-3">
     <label for="method" class="form-label">Phương thức thanh toán</label>
     <select class="form-select" id="method"
-            [(ngModel)]="paymentMethod" name="method" required>
+            [(ngModel)]="booking.paymentMethod" name="method" required>
       <option value="Cash" selected>Tiền mặt</option>
       <option value="VNPay">VNPay</option>
       <option value="PayPal">PayPal</option>

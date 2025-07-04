@@ -11,5 +11,5 @@ export interface BookingDetail {
   price: number;
   isCheckedIn: boolean;
   isCheckedOut: boolean;
-  services?: ServiceDetailItem[];
+  services: ServiceDetailItem[];
 }
