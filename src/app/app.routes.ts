@@ -32,7 +32,7 @@ export const routes: Routes = [
       { path: 'room/:id', component: RoomDetailComponent },
       { path: 'service', component: ServiceComponent },
       { path: 'booking/:id', component: BookingComponent ,canActivate: [AuthGuard]},
-      // { path: 'booking-detail/:roomid', component: BookingDetailComponent },
+      { path: 'booking-detail/:id', component: BookingDetailComponent },
       {path: 'my-bookings',component:BookingHistoryComponent,canActivate: [AuthGuard]},
       { path: 'room-card', component: AppRoomCardComponent },
       { path: 'login', component: LoginComponent },

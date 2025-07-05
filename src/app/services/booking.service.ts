@@ -53,8 +53,8 @@ export class BookingService {
   getMyBookings(){
     return this.http.get<any[]>(`${environment.apiUrl}`+`/booking/my-bookings`)
   }
-  getBookingDetail(bookingId: string): Observable<any>{
-    return this.http.get<any[]>(`${environment.apiUrl}/booking/`+bookingId)
+  getBookingDetail(id: number): Observable<Booking>{
+    return this.http.get<Booking>(`${environment.apiUrl}/booking/`+id)
   }
   getAll(): Observable<Booking[]>{
      return this.http.get<Booking[]>(`${environment.apiUrl}`+`/booking/get_all`);

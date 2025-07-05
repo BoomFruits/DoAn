@@ -66,7 +66,7 @@
           <th class="px-4 py-2 border">Trạng thái thanh toán</th>
           <th class="px-4 py-2 border">Ngày thanh toán</th>
           <th class="px-4 py-2 border">Trạng thái đơn</th>
-          <th class="px-4 py-2 border">Ghi chú</th>
+          <th class="px-4 py-2 border">Ghi chú phòng</th>
           <th class="px-4 py-2 border">Chi tiết đặt phòng</th>
           <th class="px-4 py-2 border">Hành động</th>
         </tr>
@@ -100,7 +100,8 @@
         </button>
       </div>
       <strong>Ngày ở:</strong> {{ detail.checkinDate | date }} → {{ detail.checkoutDate | date }}<br />
-      <strong>Giá/ngày:</strong> {{ detail.price | number }} VNĐ
+      <strong>Giá/ngày:</strong> {{ detail.price | number }} VNĐ <br>
+      <strong>Tổng tiền phòng:</strong> {{ detail.price | number }} VNĐ 
           <!-- Hiển thị dịch vụ -->
       <div *ngIf="detail.services?.length">
         <strong>Dịch vụ:</strong>
@@ -111,8 +112,9 @@
         </ul>
       </div>
         <hr class="my-2 border-gray-300" />
+      <strong>Tổng tiền:</strong> {{ booking.totalPrice| number }} VNĐ 
     </li>
-      <strong>Tổng tiền: {{ booking.totalPrice | number}} VNĐ</strong>
+      <button (click)="navigateToBookingDetail(booking.id)">Xem chi tiết đặt phòng</button>
   </ul>
 </td>
 <td  *ngIf="!booking.isPaid && booking.status != 2" class="px-4 py-2 border">

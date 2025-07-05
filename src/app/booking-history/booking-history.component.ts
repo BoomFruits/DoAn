@@ -101,4 +101,7 @@ export class BookingHistoryComponent implements OnInit{
 
     return 'Không xác định';
   }
+  navigateToBookingDetail(bookingId: number){
+    this.router.navigate(['/booking-detail', bookingId]);
+  }
 }

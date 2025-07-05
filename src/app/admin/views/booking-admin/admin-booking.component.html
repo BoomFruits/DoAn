@@ -76,7 +76,8 @@
                   <strong>Thời gian lưu trú:</strong> {{ formatDate(room.checkinDate) }} →
                   {{ formatDate(room.checkoutDate) }}<br />
                   <strong>Ghi chú: </strong> {{ room.roomNote }} <br>
-                  <strong>Giá:</strong> {{ room.price | number }} VNĐ
+                  <strong>Giá:</strong> {{ room.price | number }} VNĐ <br>
+                  <strong>Tổng tiền phòng:</strong> {{ room.totalAmount | number }} VNĐ
                 </div>
                 <div>
                   <button
@@ -84,14 +85,14 @@
                     class="btn btn-success btn-sm"
                     (click)="checkIn(b.id, room.roomId, room)"
                   >
-                    Check in - {{ b.id }}
+                    Check in phòng {{ room.room_No}}
                   </button>
                   <button
                     *ngIf="room.isCheckedIn && !room.isCheckedOut"
                     class="btn btn-warning btn-sm"
                     (click)="checkOut(b.id, room.roomId, room)"
                   >
-                    Check out
+                    Check out phòng {{ room.room_No }}
                   </button>
                   <span *ngIf="room.isCheckedOut" class="badge bg-info"
                     >Hoàn thành</span

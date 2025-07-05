@@ -43,10 +43,18 @@ export class PaymentComponent implements OnInit {
     this.route.paramMap.subscribe((params) => {
       const bookingId = params.get('bookingId');
       if (bookingId) {
-        this.bookingService.getBookingDetail(bookingId).subscribe((data) => {
-          console.log('booking data api: ', data);
+       this.bookingService.getBookingDetail(Number(bookingId)).subscribe({
+        next: (data) => {
           this.booking = data;
-        });
+          this.totalPrice = data.totalPrice;
+        },
+        error: (err) => {
+          this.toastr.error("Không tìm thấy hoá đơn");
+        }
+       })
+      }
+      else{
+        
       }
     });
   }
@@ -122,7 +130,7 @@ export class PaymentComponent implements OnInit {
   }
   payWithCash() {
     this.toastr.success(
-      'Đặt phòng thành công! Vui lòng thanh toán khi nhận phòng hoặc sau đó trong lịch sử đặt phòng.'
+      'Vui lòng thanh toán tại quầy khi nhận phòng hoặc sau đó trong lịch sử đặt phòng.'
     );
   }
 }

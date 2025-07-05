@@ -27,6 +27,7 @@ import { WidgetsDropdownComponent } from '../widgets/widgets-dropdown/widgets-dr
 import { ChartjsComponent, ChartjsModule } from '@coreui/angular-chartjs';
 import { DashboardService } from '../../../services/dashboard.service';
 import { DashboardStats } from '../../../../model/DashboardStats.model';
+import { NotificationService } from '../../../services/notification.service';
 
 interface IUser {
   name: string;
@@ -56,21 +57,21 @@ export class DashboardComponent implements OnInit {
   statMode: 'today' | 'month' | 'custom' = 'today';
   fromDate!: string;
   toDate!: string;
-successCount = 0;
-canceledCount = 0;
-  totalRevenue = 0;
-totalBookings = 0;
-userCount = 0;
-activeRooms = 0;
-todayCheckins = 0;
-monthCheckins = 0;
-todayCheckouts = 0;
-monthCheckouts = 0;
-topServicesChartData!: ChartData<'bar'>;
-topRoomsChartData!: ChartData<'bar'>;
-monthlyRevenueChartData!: ChartData<'line'>;
-monthlyBookingsChartData!: ChartData<'bar'>;
-chartBarData: ChartData<'bar'> = {
+  successCount = 0;
+  canceledCount = 0;
+    totalRevenue = 0;
+  totalBookings = 0;
+  userCount = 0;
+  activeRooms = 0;
+  todayCheckins = 0;
+  monthCheckins = 0;
+  todayCheckouts = 0;
+  monthCheckouts = 0;
+  topServicesChartData!: ChartData<'bar'>;
+  topRoomsChartData!: ChartData<'bar'>;
+  monthlyRevenueChartData!: ChartData<'line'>;
+  monthlyBookingsChartData!: ChartData<'bar'>;
+  chartBarData: ChartData<'bar'> = {
   labels: ['Tổng số đặt', 'Phòng hoạt động', 'Checkin hôm nay', 'Checkout hôm nay','Số lượng đặt phòng hôm nay','Số lượng đặt phòng trong tháng'],
   datasets: [
     {

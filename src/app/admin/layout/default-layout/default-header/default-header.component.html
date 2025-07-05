@@ -36,9 +36,35 @@
     </c-header-nav>
 
     <c-header-nav class="d-none d-md-flex ms-auto ">
-      <a cNavLink>
-        <svg cIcon class="my-1" name="cilBell" size="lg"></svg>
-      </a>
+      <div class="position-relative" (click)="toggleNotifications()">
+  <a cNavLink style="cursor: pointer;">
+    <svg cIcon class="my-1" name="cilBell" size="lg"></svg>
+    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+          *ngIf="notificationCount > 0">
+      {{ notificationCount }}
+    </span>
+  </a>
+
+  <div class="dropdown-menu dropdown-menu-end show mt-2 position-absolute"
+       *ngIf="showNotif"
+       style="min-width: 300px; max-height: 400px; overflow-y: auto; right: 0; z-index: 9999;">
+    <h6 class="dropdown-header">Thông báo</h6>
+    <div *ngIf="notifications.length === 0" class="dropdown-item text-muted">
+      Không có thông báo mới
+    </div>
+    <div *ngFor="let noti of notifications"
+         class="dropdown-item small border-bottom"
+         [ngClass]="{'fw-bold': !noti.adminRead}"
+         (click)="openBookingDetail(noti.id,noti.bookingId)">
+      <div class="d-flex justify-content-between">
+        <strong>{{ noti.title }}</strong>
+      </div>
+      <div class="text-truncate">
+        {{ noti.message }}
+      </div>
+    </div>
+  </div>
+</div>
       <a cNavLink>
         <svg cIcon class="my-1" name="cilList" size="lg"></svg>
       </a>
@@ -162,7 +188,7 @@
         </a>
       </li> -->
       <li>
-        <a cDropdownItem routerLink="/logout">
+        <a cDropdownItem (click)="logout()">
           <svg cIcon class="me-2" name="cilAccountLogout"></svg>
           Logout
         </a>
