@@ -16,7 +16,8 @@ import {
   ThemeDirective
 } from '@coreui/angular';
 import { IconDirective } from '@coreui/icons-angular';
-import { DocsExampleComponent } from '../../../components/public-api';
+import { DocsExampleComponent } from "../../../components/docs-example/docs-example.component";
+// import { DocsExampleComponent } from '../../../components/public-api';
 
 
 @Component({
@@ -24,7 +25,7 @@ import { DocsExampleComponent } from '../../../components/public-api';
     templateUrl: './alerts.component.html',
     styleUrls: ['./alerts.component.scss'],
     standalone:true,
-    imports: [RowComponent, ColComponent, TextColorDirective, CardComponent, CardHeaderComponent, CardBodyComponent, DocsExampleComponent, AlertComponent, AlertLinkDirective, RouterLink, AlertHeadingDirective, IconDirective, TemplateIdDirective, ThemeDirective, ButtonCloseDirective, ButtonDirective]
+    imports: [RowComponent, ColComponent, TextColorDirective, CardComponent, CardHeaderComponent, CardBodyComponent, AlertComponent, AlertLinkDirective, RouterLink, AlertHeadingDirective, IconDirective, TemplateIdDirective, ThemeDirective, ButtonCloseDirective, ButtonDirective, DocsExampleComponent]
 })
 export class AlertsComponent implements OnInit {
 

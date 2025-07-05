@@ -5,11 +5,12 @@ import { RouterLink } from '@angular/router';
 import { FlatpickrDirective } from 'angularx-flatpickr';
 import { HeaderComponent } from "../header/header.component";
 import { FooterComponent } from '../footer/footer.component';
+import { NewsletterComponent } from "../newsletter/newsletter.component";
 
 @Component({
   encapsulation:ViewEncapsulation.None,
   selector: 'app-service',
-  imports: [ CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, NewsletterComponent],
   standalone:true,
   templateUrl: './service.component.html',
   styleUrl: './service.component.scss'

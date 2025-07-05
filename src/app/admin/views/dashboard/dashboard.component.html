@@ -1,10 +1,37 @@
 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
  <!-- Tabs -->
-<div class="mb-4 border-b flex space-x-4">
-  <button [ngClass]="{ 'border-b-2 border-primary font-bold': statMode === 'today' }" (click)="setStatMode('today')">Hôm nay</button>
-  <button [ngClass]="{ 'border-b-2 border-primary font-bold': statMode === 'month' }" (click)="setStatMode('month')">Tháng này</button>
-  <button [ngClass]="{ 'border-b-2 border-primary font-bold': statMode === 'custom' }" (click)="setStatMode('custom')">Tuỳ chọn...</button>
+<div class="mb-6 border-b border-gray-200">
+  <div class="flex space-x-4">
+    <button
+      class="pb-2 transition-all duration-300 text-gray-600 hover:text-primary relative"
+      [ngClass]="{
+        'border-b-2 border-primary text-primary font-semibold': statMode === 'today'
+      }"
+      (click)="setStatMode('today')"
+    >
+      Hôm nay
+    </button>
+    <button
+      class="pb-2 transition-all duration-300 text-gray-600 hover:text-primary relative"
+      [ngClass]="{
+        'border-b-2 border-primary text-primary font-semibold': statMode === 'month'
+      }"
+      (click)="setStatMode('month')"
+    >
+      Tháng này
+    </button>
+    <button
+      class="pb-2 transition-all duration-300 text-gray-600 hover:text-primary relative"
+      [ngClass]="{
+        'border-b-2 border-primary text-primary font-semibold': statMode === 'custom'
+      }"
+      (click)="setStatMode('custom')"
+    >
+      Tuỳ chọn...
+    </button>
+  </div>
 </div>
+
 
 <!-- Date range picker -->
 <div *ngIf="statMode === 'custom'" class="mb-4 flex items-center gap-4">
@@ -16,23 +43,35 @@
 </div>
 <c-card>
   <c-card-body>
-    <h6 class="text-sm text-muted">Tổng số đặt phòng</h6>
-    <h3 class="text-lg font-semibold mb-3">{{ totalBookings }}</h3>
+  <div class="mb-3">
+    <h6 class="text-sm text-muted">Tổng số đặt phòng - Doanh thu</h6>
+    <h3 class="text-xl font-semibold text-primary">{{ totalBookings }} - {{ totalRevenue | currency:'VND':'symbol':'1.0-0' }}</h3>
+  </div>
 
-    <table class="w-full text-sm">
-      <tbody>
-        <tr>
-          <td class="text-muted">✔️ Thành công</td>
-          <td class="text-end font-medium">{{ successCount }}</td>
-          <td class="text-muted">Tỷ lệ <span class="text-success">({{ (successCount / totalBookings * 100) | number: '1.0-0' }}%)</span></td>
-        </tr>
-        <tr>
-          <td class="text-muted">❌ Huỷ</td>
-          <td class="text-end font-medium">{{ canceledCount }}</td>
-        </tr>
-      </tbody>
-    </table>
-  </c-card-body>
+  <div class="grid grid-cols-1 gap-2 text-sm">
+    <!-- Thành công -->
+    <div class="flex items-center justify-between border rounded-lg px-3 py-2 bg-green-50 border-green-200">
+      <div class="flex items-center space-x-2 text-green-700">
+        <span>✔️</span>
+        <span>Thành công</span>
+      </div>
+      <div class="text-end">
+        <div class="font-semibold text-green-800">{{ successCount }}</div>
+        <div class="text-xs text-green-600">Tỷ lệ: {{ (successCount / totalBookings * 100) | number: '1.0-0' }}%</div>
+      </div>
+    </div>
+
+    <!-- Huỷ -->
+    <div class="flex items-center justify-between border rounded-lg px-3 py-2 bg-red-50 border-red-200">
+      <div class="flex items-center space-x-2 text-red-700">
+        <span>❌</span>
+        <span>Huỷ</span>
+      </div>
+      <div class="font-semibold text-red-800">{{ canceledCount }}</div>
+    </div>
+  </div>
+</c-card-body>
+
 </c-card>
 
 <c-card>
@@ -72,6 +111,14 @@
         <tr>
           <td class="text-muted"><h6>Số check-out trong tháng</h6></td>
           <td class="text-end font-medium">{{ monthCheckouts }}</td>
+        </tr>
+    </c-card-body>
+  </c-card>
+  <c-card>
+    <c-card-body>
+       <tr>
+          <td class="text-muted"><h6>Doanh thu hôm nay: </h6></td>
+          <td class="text-end font-medium"><strong>{{ todayRevenue }} VNĐ</strong></td>
         </tr>
     </c-card-body>
   </c-card>

@@ -4,12 +4,13 @@ import { BookingService } from '../services/booking.service';
 import { Booking } from '../../model/booking.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { NewsletterComponent } from "../newsletter/newsletter.component";
 
 @Component({
   standalone: true,
   encapsulation: ViewEncapsulation.None,
   selector: 'app-booking-detail',
-  imports: [CommonModule],
+  imports: [CommonModule, NewsletterComponent],
   templateUrl: './booking-detail.component.html',
   styleUrl: './booking-detail.component.scss',
 })

@@ -59,7 +59,7 @@ export class DashboardComponent implements OnInit {
   toDate!: string;
   successCount = 0;
   canceledCount = 0;
-    totalRevenue = 0;
+  totalRevenue = 0;
   totalBookings = 0;
   userCount = 0;
   activeRooms = 0;
@@ -67,6 +67,7 @@ export class DashboardComponent implements OnInit {
   monthCheckins = 0;
   todayCheckouts = 0;
   monthCheckouts = 0;
+  todayRevenue = 0;
   topServicesChartData!: ChartData<'bar'>;
   topRoomsChartData!: ChartData<'bar'>;
   monthlyRevenueChartData!: ChartData<'line'>;
@@ -115,6 +116,8 @@ options = {
       this.userCount = res.userCount;
       this.monthCheckins = res.monthCheckins;
       this.monthCheckouts = res.monthCheckouts;
+      this.todayRevenue = res.todayRevenue;
+      this.totalRevenue = res.totalRevenue;
       // Bar chart tổng quan
       this.chartBarData = {
         labels: ['Tổng đặt phòng', 'Phòng hoạt động', 'Checkin hôm nay', 'Checkout hôm nay'],

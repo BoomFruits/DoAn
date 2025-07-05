@@ -4,7 +4,7 @@ import { environment } from "../../../environment";
 import { VnPayCreatePaymentRequest } from "../../model/VnPayCreatePaymentRequest.model";
 import { VnPayResponse } from "../../model/VnPayResponse.model";
 import { PaypalCreatePaymentRequest } from "../../model/PaypalCreatePaymentRequest.model";
-import { PaypalCreatePaymentResponse } from "../../model/PaypalCreatePaymentResponse .model";
+import { PaypalCreatePaymentResponse } from "../../model/PaypalCreatePaymentResponse.model";
 
 @Injectable({ providedIn: 'root' })
 export class PaymentService {

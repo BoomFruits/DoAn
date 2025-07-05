@@ -11,7 +11,7 @@ export class AuthGuard implements CanActivate {
   canActivate(): boolean {
     const isAuth = this.auth.isLoggedIn();
     if (isAuth) return true;
-     this.toastr.warning("Please login to continue","Not login yet");
+     this.toastr.warning("Đăng nhập để tiếp tục","Bạn chưa đăng nhập");
     this.router.navigate(['/login']);
     return false;
   }

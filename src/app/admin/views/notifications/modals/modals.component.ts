@@ -20,7 +20,7 @@ import {
   ThemeDirective,
   TooltipDirective
 } from '@coreui/angular';
-import { DocsExampleComponent } from '../../../components/public-api';
+// import { DocsExampleComponent } from '../../../components/public-api';
 
 
 @Component({
@@ -28,7 +28,7 @@ import { DocsExampleComponent } from '../../../components/public-api';
     templateUrl: './modals.component.html',
     styleUrls: ['./modals.component.scss'],
     standalone:true,
-    imports: [RowComponent, ColComponent, TextColorDirective, CardComponent, CardHeaderComponent, CardBodyComponent, DocsExampleComponent, ModalComponent, ModalHeaderComponent, ModalTitleDirective, ThemeDirective, ButtonCloseDirective, ModalBodyComponent, ModalFooterComponent, ButtonDirective, NgTemplateOutlet, ModalToggleDirective, PopoverDirective, TooltipDirective]
+    imports: [RowComponent, ColComponent, TextColorDirective, CardComponent, CardHeaderComponent, CardBodyComponent, ModalComponent, ModalHeaderComponent, ModalTitleDirective, ThemeDirective, ButtonCloseDirective, ModalBodyComponent, ModalFooterComponent, ButtonDirective, NgTemplateOutlet, ModalToggleDirective, PopoverDirective, TooltipDirective]
 })
 export class ModalsComponent {
 

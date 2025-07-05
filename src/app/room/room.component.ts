@@ -15,15 +15,15 @@ import { RoomDetailComponent } from '../room-detail/room-detail.component';
 import { environment } from '../../../environment';
 import {  ButtonDirective, DropdownComponent, DropdownMenuDirective, DropdownModule, DropdownToggleDirective, FormDirective } from '@coreui/angular';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { NewsletterComponent } from "../newsletter/newsletter.component";
 declare var bootstrap: any;
 
 @Component({
   encapsulation: ViewEncapsulation.None,
   selector: 'app-room',
   standalone: true,
-  imports: [CommonModule, FormsModule, RoomDetailComponent,DropdownComponent,DropdownToggleDirective,DropdownMenuDirective,
-    DropdownModule,FormDirective,ButtonDirective,NgxPaginationModule
-  ],
+  imports: [CommonModule, FormsModule, RoomDetailComponent, DropdownComponent, DropdownToggleDirective, DropdownMenuDirective,
+    DropdownModule, FormDirective, ButtonDirective, NgxPaginationModule, NewsletterComponent],
   templateUrl: './room.component.html',
   styleUrls: ['./room.component.scss'],
   providers: [provideFlatpickrDefaults()],

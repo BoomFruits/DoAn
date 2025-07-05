@@ -1,5 +1,6 @@
 export interface DashboardStats {
   totalRevenue: number;
+  todayRevenue: number;
   totalBookings: number;
   todayBookings: number;
   userCount: number;

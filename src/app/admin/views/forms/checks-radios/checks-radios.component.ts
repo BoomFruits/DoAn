@@ -2,7 +2,8 @@ import { Component } from '@angular/core';
 import { FormControl, UntypedFormBuilder, ReactiveFormsModule } from '@angular/forms';
 
 import { RowComponent, FormDirective, ColComponent, TextColorDirective, CardComponent, CardHeaderComponent, CardBodyComponent, FormCheckComponent, FormCheckInputDirective, FormCheckLabelDirective, ButtonGroupComponent, ButtonDirective } from '@coreui/angular';
-import { DocsExampleComponent } from '../../../components/public-api';
+import { DocsExampleComponent } from '../../../components/docs-example/docs-example.component';
+
 
 @Component({
     selector: 'app-checks-radios',

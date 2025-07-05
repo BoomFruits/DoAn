@@ -46,7 +46,7 @@ export class AdminBookingComponent  implements OnInit{
   getStatusName(s: number) {
     switch (s) {
       case 0:
-        return 'Chờ';
+        return 'Chờ thanh toán';
       case 1:
         return 'Xác nhận thanh toán';
       case 2:
@@ -91,6 +91,7 @@ export class AdminBookingComponent  implements OnInit{
         this.message = res.message;
         this.toastr.success(this.message);
         detail.isCheckedIn = true;
+        this.loadBookings();
       },error: (err) => {
           this.message = err.message;
           this.toastr.error(this.message);
@@ -104,6 +105,7 @@ export class AdminBookingComponent  implements OnInit{
         this.message = res.message;
         this.toastr.success(this.message);
         detail.isCheckedOut = true;
+         this.loadBookings();
       },error: (err) => {
           this.message = err.message;
           this.toastr.error(this.message);

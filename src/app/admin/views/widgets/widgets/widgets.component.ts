@@ -5,7 +5,7 @@ import { WidgetsEComponent } from '../widgets-e/widgets-e.component';
 import { WidgetsDropdownComponent } from '../widgets-dropdown/widgets-dropdown.component';
 
 import { TextColorDirective, CardComponent, CardHeaderComponent, CardBodyComponent, RowComponent, ColComponent, WidgetStatBComponent, ProgressBarDirective, ProgressComponent, WidgetStatFComponent, TemplateIdDirective, CardGroupComponent, WidgetStatCComponent } from '@coreui/angular';
-import { DocsExampleComponent } from '../../../components/public-api';
+import { DocsExampleComponent } from "../../../components/docs-example/docs-example.component";
 
 
 @Component({
@@ -14,7 +14,7 @@ import { DocsExampleComponent } from '../../../components/public-api';
     styleUrls: ['./widgets.component.scss'],
     changeDetection: ChangeDetectionStrategy.Default,
     standalone:true,
-    imports: [TextColorDirective, CardComponent, CardHeaderComponent, CardBodyComponent, DocsExampleComponent, WidgetsDropdownComponent, RowComponent, ColComponent, WidgetStatBComponent, ProgressBarDirective, ProgressComponent, WidgetsEComponent, WidgetStatFComponent, TemplateIdDirective, IconDirective, WidgetsBrandComponent, CardGroupComponent, WidgetStatCComponent]
+    imports: [TextColorDirective, CardComponent, CardHeaderComponent, CardBodyComponent, WidgetsDropdownComponent, RowComponent, ColComponent, WidgetStatBComponent, ProgressBarDirective, ProgressComponent, WidgetsEComponent, WidgetStatFComponent, TemplateIdDirective, IconDirective, WidgetsBrandComponent, CardGroupComponent, WidgetStatCComponent, DocsExampleComponent]
 })
 export class WidgetsComponent implements AfterContentInit {
   constructor(
