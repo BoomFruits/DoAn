@@ -40,8 +40,8 @@ export const routes: Routes = [
       {path:'password',component:PasswordComponent,canActivate:[AuthGuard]},
       {path: 'forgotpassword',component:ForgotPasswordComponent},
       { path: 'register', component: RegisterComponent },
-      { path: 'payment-success', component: PaymentSuccessComponent },
-      {path:'payment-failed',component:PaymentFailedComponent},
+      { path: 'payment-success', component: PaymentSuccessComponent,canActivate:[AuthGuard] },
+      {path:'payment-failed',component:PaymentFailedComponent,canActivate:[AuthGuard]},
       {path: 'contact',component: ContactComponent},
       {path:'payment/:bookingId',component:PaymentComponent,canActivate:[AuthGuard]}
     ]

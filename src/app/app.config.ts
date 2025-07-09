@@ -1,5 +1,5 @@
 import { ApplicationConfig, importProvidersFrom } from '@angular/core';
-import { provideRouter } from '@angular/router';
+import { provideRouter, RouterModule, withViewTransitions } from '@angular/router';
 import { IconSetService } from '@coreui/icons-angular';
 import { routes } from './app.routes';
 import { provideClientHydration } from '@angular/platform-browser';
@@ -16,7 +16,7 @@ import { SocialLoginModule,SocialAuthServiceConfig, GoogleLoginProvider, Faceboo
 
 
 export const appConfig: ApplicationConfig = {
-  providers: [ provideRouter(routes),
+  providers: [ provideRouter(routes,withViewTransitions()),
     importProvidersFrom(AuthModule),
     provideHttpClient(withFetch(),withInterceptorsFromDi()),
     provideClientHydration(),

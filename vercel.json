@@ -2,5 +2,5 @@
   "rewrites": [
     { "source": "/(.*)", "destination": "/index.html" }
   ],
-  "outputDirectory": "dist/doanfrontend/browser"
+  "outputDirectory": "dist/doanfrontend"
 }
