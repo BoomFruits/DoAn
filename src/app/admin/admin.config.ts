@@ -21,7 +21,6 @@ export const adminProviders = [
     withInMemoryScrolling({ scrollPositionRestoration: 'top', anchorScrolling: 'enabled' }),
     withEnabledBlockingInitialNavigation(),
     withViewTransitions(),
-    withHashLocation()
   ),
   importProvidersFrom(SidebarModule, DropdownModule,AuthModule),
   {

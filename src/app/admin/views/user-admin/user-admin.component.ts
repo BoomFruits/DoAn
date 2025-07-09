@@ -5,6 +5,7 @@ import { User } from '../../../../model/user.model';
 import { UserService } from '../../../services/user.service';
 import { CommonModule } from '@angular/common';
 import { UpdateUserDTO } from '../../../../model/updateUserDTO.model';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-user-admin',
@@ -18,7 +19,7 @@ export class UserAdminComponent implements OnInit {
   editingUserId: string | null = null;
   editForm!: FormGroup;
   roles: { id: number, rolename: string }[] = [];
-  constructor(private userService: UserService, private fb: FormBuilder) {}
+  constructor(private userService: UserService, private fb: FormBuilder,private toastr: ToastrService) {}
 
   ngOnInit(): void {
     this.loadUsers();
@@ -62,6 +63,7 @@ export class UserAdminComponent implements OnInit {
     const updatedUser = this.editForm.value as UpdateUserDTO;
     this.userService.updateUser(id,updatedUser).subscribe(() => {
       this.loadUsers();
+       this.toastr.success('Cập nhập người dùng '+id+' thành công');
       this.editingUserId = null;
     });
   }
@@ -73,7 +75,10 @@ export class UserAdminComponent implements OnInit {
 
   delete(id: string) {
     if (confirm('Confirm delete?')) {
-      this.userService.delete(id).subscribe(() => this.loadUsers());
+      this.userService.delete(id).subscribe(() => {
+        this.toastr.success('Xoá người dùng '+id+' thành công');
+        this.loadUsers();
+      });
     }
   }
 }
