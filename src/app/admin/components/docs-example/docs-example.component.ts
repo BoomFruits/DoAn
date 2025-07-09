@@ -8,7 +8,7 @@ import {
   Input
 } from '@angular/core';
 
-import packageJson from 'D:/Code/DoAn_2151062800_DINH_NAM_KHANH/doanfrontend/package.json';
+const packageJson: any = require('.../package.json');
 import { IconDirective } from '@coreui/icons-angular';
 import { RouterLink } from '@angular/router';
 import { NavComponent, NavItemComponent, NavLinkDirective } from '@coreui/angular';
@@ -22,7 +22,7 @@ import { NavComponent, NavItemComponent, NavLinkDirective } from '@coreui/angula
 })
 export class DocsExampleComponent implements AfterContentInit, AfterViewInit {
 
-  constructor(
+  constructor(  
     private changeDetectorRef: ChangeDetectorRef
   ) {}
 
