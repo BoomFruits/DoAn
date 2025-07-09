@@ -8,7 +8,7 @@ import {
   Input
 } from '@angular/core';
 
-const packageJson: any = require('.../package.json');
+const packageJson: any = require('../../../../../package.json');
 import { IconDirective } from '@coreui/icons-angular';
 import { RouterLink } from '@angular/router';
 import { NavComponent, NavItemComponent, NavLinkDirective } from '@coreui/angular';

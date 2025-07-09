@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-const packageJson: any = require('.../package.json');
+const packageJson: any = require('../../../../../package.json');
 import { NgTemplateOutlet } from '@angular/common';
 import { CalloutComponent } from '@coreui/angular';
 
