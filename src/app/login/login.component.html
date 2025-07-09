@@ -20,14 +20,13 @@
     <button type="submit">Đăng nhập</button>
     <h6><a [routerLink]="['/forgotpassword']">Quên mật khẩu</a></h6>
     <h6><a [routerLink]="['/register']" routerLinkActive="router-link-active" >hoặc đăng ký</a></h6>
-        <div class="btn-social-wrapper">
-      <asl-google-signin-button
+             <asl-google-signin-button
         [theme]="'filled_blue'"
         [shape]="'rectangular'"
         [type]="'standard'"
+        [width]="335"
         [text]="'signin_with'">
-      </asl-google-signin-button>
-    </div>
+      </asl-google-signin-button> 
     <hr>
     <button type="button" (click)="signInWithFB()" class="btn-social facebook">
       <img src="https://upload.wikimedia.org/wikipedia/commons/0/05/Facebook_Logo_%282019%29.png"

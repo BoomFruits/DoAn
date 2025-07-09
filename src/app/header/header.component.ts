@@ -26,7 +26,8 @@ export class HeaderComponent implements OnInit {
     ngOnInit(): void {
        this.notificationService.startConnection();
        const userId = this.authService.GetUserId();
-       // Lấy toàn bộ thông báo từ server
+       if(userId){
+        // Lấy toàn bộ thông báo từ server
         this.notificationService.getUserNotifications(userId).subscribe(data => {
           this.notifications = data;
           // Đếm số lượng chưa đọc
@@ -37,6 +38,7 @@ export class HeaderComponent implements OnInit {
         this.notifications.unshift(notif);
         this.notificationCount++;
       });
+       }
     }
     toggleNotifications() {
       this.showNotif = !this.showNotif;

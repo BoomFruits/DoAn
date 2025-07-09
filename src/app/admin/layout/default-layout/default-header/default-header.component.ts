@@ -77,7 +77,7 @@ export class DefaultHeaderComponent extends HeaderComponent implements OnInit {
     }
   }
   openBookingDetail(notificationId: number,bookingId: number){
-    this.notificationService.markAsRead(notificationId).subscribe(() => {
+    this.notificationService.markAdminRead(notificationId).subscribe(() => {
       const noti = this.notifications.find(n => n.id === notificationId);
       if (noti) noti.adminRead = true;
     });

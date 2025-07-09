@@ -31,8 +31,8 @@ export class NotificationService {
     return this.http.get<NotificationDTO[]>(`${environment.apiUrl}/notification/user/${userId}`);
   } 
     markAsRead(notificationId: number): Observable<void> {
-      if(!this.authService.isAdmin()){
         return this.http.put<void>(`${environment.apiUrl}/notification/${notificationId}/read`, {}); }
-      return this.http.put<void>(`${environment.apiUrl}/notification/${notificationId}/admin-read`, {});
-  }
+    markAdminRead(notificationId: number): Observable<void> {
+          return this.http.put<void>(`${environment.apiUrl}/notification/${notificationId}/admin-read`, {});
+    }
 }
