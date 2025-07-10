@@ -56,8 +56,8 @@ export class BookingService {
   getBookingDetail(id: number): Observable<Booking>{
     return this.http.get<Booking>(`${environment.apiUrl}/booking/`+id)
   }
-  getAll(): Observable<Booking[]>{
-     return this.http.get<Booking[]>(`${environment.apiUrl}`+`/booking/get_all`);
+  getAll(params: any): Observable<Booking[]>{
+     return this.http.get<Booking[]>(`${environment.apiUrl}`+`/booking/get_all`,{params});
   }
   deleteBooking(bookingId: number): Observable<any>{
       return this.http.delete(`${environment.apiUrl}`+`/booking/delete/`+bookingId, {})

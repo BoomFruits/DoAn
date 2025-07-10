@@ -28,6 +28,7 @@ import { ChartjsComponent, ChartjsModule } from '@coreui/angular-chartjs';
 import { DashboardService } from '../../../services/dashboard.service';
 import { DashboardStats } from '../../../../model/DashboardStats.model';
 import { NotificationService } from '../../../services/notification.service';
+import { ToastrService } from 'ngx-toastr';
 
 interface IUser {
   name: string;
@@ -51,7 +52,7 @@ interface IUser {
   CardHeaderComponent,CommonModule]
 })
 export class DashboardComponent implements OnInit {
-  constructor(private dashboardService: DashboardService){}
+  constructor(private dashboardService: DashboardService,private toastr: ToastrService){}
   dashboardStats: DashboardStats | undefined;
   months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
   statMode: 'today' | 'month' | 'custom' = 'today';
@@ -77,7 +78,7 @@ export class DashboardComponent implements OnInit {
   datasets: [
     {
       label: 'Thống kê tổng quan',
-      backgroundColor: ['#42A5F5', '#66BB6A', '#FFA726', '#EF5350','#c25640','#a12283'],
+      backgroundColor: ['#42A5F5', '#66BB6A', '#FFA726', '#EF5350','#C25640','#A12283'],
       data: []
     }
   ]
@@ -99,7 +100,7 @@ options = {
     const params: any = { mode: this.statMode };
     if (this.statMode === 'custom') {
       if (!this.fromDate || !this.toDate) {
-        alert('Vui lòng chọn khoảng ngày!');
+        this.toastr.info('Vui lòng chọn khoảng ngày!');
         return;
       }
       params.from = this.fromDate;

@@ -41,6 +41,46 @@
         </div>
       </ng-container>
     </div>
+    <div>
+     <div class="mb-6 border-b border-gray-200">
+  <div class="flex space-x-4">
+    <button
+      class="pb-2 transition-all duration-300 text-gray-600 hover:text-primary relative"
+      [ngClass]="{
+        'border-b-2 border-primary text-primary font-semibold': statMode === 'today'
+      }"
+      (click)="setStatMode('today')"
+    >
+      Hôm nay
+    </button>
+    <button
+      class="pb-2 transition-all duration-300 text-gray-600 hover:text-primary relative"
+      [ngClass]="{
+        'border-b-2 border-primary text-primary font-semibold': statMode === 'month'
+      }"
+      (click)="setStatMode('month')"
+    >
+      Tháng này
+    </button>
+    <button
+      class="pb-2 transition-all duration-300 text-gray-600 hover:text-primary relative"
+      [ngClass]="{
+        'border-b-2 border-primary text-primary font-semibold': statMode === 'custom'
+      }"
+      (click)="setStatMode('custom')"
+    >
+      Tuỳ chọn...
+    </button>
+  </div>
+  <div *ngIf="statMode === 'custom'" class="mb-4 flex items-center gap-4">
+  <label>Từ:</label>
+  <input type="date" [(ngModel)]="fromDate" />
+  <label>Đến:</label>
+  <input type="date" [(ngModel)]="toDate" />  
+   <button class="btn btn-sm btn-primary" (click)="loadBookings()">Lọc</button>
+</div>
+</div>
+    </div>
   </div>
   <table class="table table-bordered table-striped">
     <thead class="table-light">

@@ -20,6 +20,9 @@ export class AdminBookingComponent  implements OnInit{
   message: string = '';
 
   //lọc và phân trang
+  statMode: 'today' | 'month' | 'custom' = 'today';
+  fromDate!: string;
+  toDate!: string;
   paymentMethods: string[] = ['Tiền mặt', 'VNPay', 'PayPal'];
   selectedPaymentMethod: string = '';
   selectedStatuses: number[] = [];
@@ -41,7 +44,16 @@ export class AdminBookingComponent  implements OnInit{
   }
 
   loadBookings() {
-    this.bookingService.getAll().subscribe((res) => (this.bookings = res));
+    const params: any = {mode : this.statMode}
+    if(this.statMode == 'custom'){
+      if(!this.fromDate || !this.toDate){
+        this.toastr.error("Vui lòng chọn khoảng ngày")
+        return;
+      }
+      params.from = this.fromDate;
+      params.to = this.toDate;
+    }
+    this.bookingService.getAll(params).subscribe((res) => (this.bookings = res));
   }
   getStatusName(s: number) {
     switch (s) {
@@ -75,7 +87,7 @@ export class AdminBookingComponent  implements OnInit{
           const matchPayment = this.selectedPaymentMethod
         ? b.paymentMethod === this.selectedPaymentMethod
         : true;
-
+      
       const matchStatus = this.selectedStatuses.length
         ? this.selectedStatuses.includes(b.status)
         : true;
@@ -84,6 +96,10 @@ export class AdminBookingComponent  implements OnInit{
         matchStatus && matchKeyword
       );
   });
+  }
+  setStatMode(mode: 'today' | 'month' | 'custom') {
+    this.statMode = mode;
+    if (mode !== 'custom') this.loadBookings();
   }
   checkIn(bookingId: number, roomId: number, detail: BookingDetail) {
     this.bookingService.checkIn(bookingId,roomId).subscribe({
